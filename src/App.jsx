@@ -1,15 +1,16 @@
 import { uuidv4 } from '@firebase/util';
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { createSpec, getSpec, updateSpec } from './firebase';
 import LookupForm from './LookupForm';
 import SpecForm from './SpecForm'
 
 function App() {
-  const [specName, setSpecName] = React.useState('user');
-  const [existingSpec, setExistingSpec] = React.useState();
-  const [errors, setErrors] = React.useState();
+  const [specName, setSpecName] = useState('user');
+  const [existingSpec, setExistingSpec] = useState();
+  const [errors, setErrors] = useState();
 
-  const handleSave = React.useCallback(async (specName, id, values) => {
+  console.log("existingSpec", existingSpec)
+  const handleSave = useCallback(async (specName, id, values) => {
     if (id === null) {
       id = uuidv4();
       await createSpec(`${specName}/${id}`, { id, ...values });
@@ -19,7 +20,7 @@ function App() {
     await updateSpec(`${specName}/${id}`, values);
   }, []);
 
-  const handleLoad = React.useCallback(async (specName, id) => {
+  const handleLoad = useCallback(async (specName, id) => {
     const spec = await getSpec(`${specName}/${id}`);
     if (!spec) {
       return alert(`${specName}/${id} not found!`);

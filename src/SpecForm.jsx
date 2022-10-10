@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 const SpecForm = ({specName, id, existingFieldValues, onSave}) => {
-    const [formValues, setFormValues] = React.useState({});
-
-    React.useEffect(() => {
+    const [formValues, setFormValues] = useState({});
+    
+    useEffect(() => {
       if (!existingFieldValues) {
         return;
       }
@@ -11,7 +11,7 @@ const SpecForm = ({specName, id, existingFieldValues, onSave}) => {
       setFormValues(existingFieldValues);
     }, [existingFieldValues]);
 
-    const handleSubmit = React.useCallback(() => {
+    const handleSubmit = useCallback(() => {
       onSave(specName, id || null, formValues);
     }, [specName, id, formValues, onSave]);
 

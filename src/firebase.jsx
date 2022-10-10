@@ -21,27 +21,27 @@ initializeApp(config);
 
 export const db = getFirestore();
 
-export const getSpec = async () => {
+export const getSpec = async (path) => {
   const docRef = doc(db, path);
   const res = await getDoc(docRef);
   return res.data();
 };
 
-export const createSpec = async () => {
+export const createSpec = async (path, values) => {
   const docRef = doc(db, path);
   await setDoc(docRef, values);
   const res = await getDoc(docRef);
   return res.data();
 };
 
-export const updateSpec = async () => {
+export const updateSpec = async (path, values) => {
   const docRef = doc(db, path);
   await updateDoc(docRef, values);
   const res = await getDoc(docRef);
   return res.data();
 };
 
-export const deleteSpec = async () => {
+export const deleteSpec = async (path) => {
     const docRef = doc(db, path);
     await deleteDoc(docRef);
   };
