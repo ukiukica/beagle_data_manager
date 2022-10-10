@@ -1,7 +1,9 @@
 import { initializeApp } from "@firebase/app";
 import {
   doc,
+  collection,
   getDoc,
+  getDocs,
   updateDoc,
   getFirestore,
   setDoc,
@@ -20,6 +22,15 @@ const config = {
 initializeApp(config);
 
 export const db = getFirestore();
+
+export const getSpecList = async (specType) => {
+  const specList = [];
+  const res = await getDocs(collection(db, specType));
+  res.forEach(doc => {
+    specList.push([doc.id, doc.data()])
+  });
+  return specList;
+}
 
 export const getSpec = async (path) => {
   const docRef = doc(db, path);

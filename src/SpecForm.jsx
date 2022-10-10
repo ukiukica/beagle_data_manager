@@ -1,46 +1,61 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from "react";
 
-const SpecForm = ({specName, id, existingFieldValues, onSave}) => {
-    const [formValues, setFormValues] = useState({});
-    
-    useEffect(() => {
-      if (!existingFieldValues) {
-        return;
-      }
+const SpecForm = ({ specName, id, existingFieldValues, onSave }) => {
+  const [formValues, setFormValues] = useState({});
+  console.log("formValues", formValues);
 
-      setFormValues(existingFieldValues);
-    }, [existingFieldValues]);
+  const formValuesArr = Object.entries(formValues);
+  // console.log("formValuesArr", formValuesArr);
 
-    const handleSubmit = useCallback(() => {
-      onSave(specName, id || null, formValues);
-    }, [specName, id, formValues, onSave]);
+  useEffect(() => {
+    if (!existingFieldValues) {
+      return;
+    }
 
-    return (
-      <form onSubmit={(e) => {
+    setFormValues(existingFieldValues);
+  }, [existingFieldValues]);
+
+  const handleSubmit = useCallback(() => {
+    onSave(specName, id || null, formValues);
+  }, [specName, id, formValues, onSave]);
+
+  return (
+    <form
+      onSubmit={(e) => {
         e.preventDefault();
         handleSubmit();
         setFormValues({});
-      }}>
-        <div>
-          <label>example field
+      }}
+    >
+      {formValuesArr.map((pair) => (
+        <div key={pair[0]}>
+          <label>
+            {pair[0]}
             <input
               type="text"
-              name="example_field"
-              value={formValues['example_field'] || ''}
+              name={pair[0]}
+              value={pair[1]}
+              // onChange={(e) => {
+              //   setFormValues({
+              //     ...formValues,
+              //     [e.target.name]: e.target.value
+              //   });
+              // }}
               onChange={(e) => {
-                setFormValues({
-                  [e.target.name]: e.target.value,
-                  ...setFormValues,
-                });
+                setFormValues(prevFormValues =>({
+                  ...prevFormValues,
+                  [e.target.name]: e.target.value
+                }))
               }}
             />
           </label>
         </div>
-        <div>
-          <button type="submit">Save</button>
-        </div>
-      </form>
-    );
-  };
+      ))}
+      <div>
+        <button type="submit">Save</button>
+      </div>
+    </form>
+  );
+};
 
-  export default SpecForm;
+export default SpecForm;

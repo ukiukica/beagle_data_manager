@@ -1,5 +1,6 @@
 import { uuidv4 } from '@firebase/util';
 import React, { useState, useEffect, useCallback } from 'react';
+import Collections from './Collections';
 import { createSpec, getSpec, updateSpec } from './firebase';
 import LookupForm from './LookupForm';
 import SpecForm from './SpecForm'
@@ -9,7 +10,7 @@ function App() {
   const [existingSpec, setExistingSpec] = useState();
   const [errors, setErrors] = useState();
 
-  console.log("existingSpec", existingSpec)
+  // console.log("existingSpec", existingSpec)
   const handleSave = useCallback(async (specName, id, values) => {
     if (id === null) {
       id = uuidv4();
@@ -50,6 +51,10 @@ function App() {
             onSave={handleSave}
           />
         }
+      </div>
+      <div>
+        <h2>New Stuff</h2>
+        <Collections />
       </div>
     </div>
   )
