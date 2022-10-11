@@ -33,7 +33,7 @@ function App() {
   return (
     <div>
       <h1>Beagle Data Manager</h1>
-      <div>
+      {/* <div>
         <LookupForm onLoad={handleLoad} />
       </div>
       <hr/>
@@ -51,9 +51,9 @@ function App() {
             onSave={handleSave}
           />
         }
-      </div>
+      </div> */}
       <div>
-        <h2>New Stuff</h2>
+        {/* <h2>New Stuff</h2> */}
         <Collections />
       </div>
     </div>

@@ -12,10 +12,7 @@ function Spec({ specType, specData, setReload }) {
   const [formValues, setFormValues] = useState([]);
   const [id, setId] = useState();
   const [test, setTest] = useState(false);
-  // console.log("specData", specData)
-  // console.log("formValues", formValues);
-  // console.log("id", id);
-  // if (formValues) console.log("date", formValues["updated_at"]?.toDate().toISOString())
+  
 
   useEffect(() => {
     if (!specData) {
@@ -39,13 +36,11 @@ function Spec({ specType, specData, setReload }) {
     setReload(true);
   }, []);
 
-  const handleSubmit = useCallback(() => {
-    handleSave(specType, id || null, formValues);
+  const handleSubmit = useCallback((payload) => {
+    handleSave(specType, id || null, payload);
   }, [specType, formValues, handleSave]);
 
   const onDelete = useCallback(async (specType, id) => {
-    // e.preventDefault();
-    // console.log("IN onDelete, path", `${specType}/${id}`);
     if (confirm("Are you sure you want to delete the selected spec?")) {
       await deleteSpec(`${specType}/${id}`);
       setReload(true);
@@ -53,23 +48,21 @@ function Spec({ specType, specData, setReload }) {
   }, []);
 
   function normalizeData() {
-    // console.log("in normalizeData");
-    const phoneNumber = formValues["phone_number"];
-    // console.log("phoneNumber", phoneNumber);
-    const lastLogin = formValues["last_login"];
-    const createdAt = formValues["created_at"];
-    const updatedAt = formValues["updated_at"];
+    let payload = {...formValues};
+    console.log("payload", payload)
+    const phoneNumber = payload["phone_number"];
+    // const lastLogin = payload["last_login"];
+    // const createdAt = payload["created_at"];
+    // const updatedAt = payload["updated_at"];
 
-   setFormValues((prevFormValues) => ({
-      ...prevFormValues,
-      ["name"]: "gotcha",
-    }));
+    payload.phone_number = parsePhoneNumber(phoneNumber).number;
+    return payload;
   }
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    // normalizeData();
-    handleSubmit();
+    const payload = normalizeData();
+    handleSubmit(payload);
     alert("Spec successfully saved!");
     setFormValues({})
   };
