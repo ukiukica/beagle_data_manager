@@ -5,6 +5,8 @@ import { createSpec, getSpec, updateSpec } from './firebase';
 import LookupForm from './LookupForm';
 import SpecForm from './SpecForm'
 
+import "./stylesheets/App.css"
+
 function App() {
   const [specName, setSpecName] = useState('user');
   const [existingSpec, setExistingSpec] = useState();

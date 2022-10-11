@@ -6,7 +6,7 @@ function Collections() {
 
   return (
     <>
-      <div>
+      <div id="collections">
         <div onClick={() => setSpecType("user")}>Users</div>
         <div onClick={() => setSpecType("customer")}>Customers</div>
         <div onClick={() => setSpecType("order")}>Orders</div>
@@ -14,7 +14,9 @@ function Collections() {
       </div>
       <br />
 
-      <SpecList specType={specType} />
+      <div id="spec-list">
+        <SpecList specType={specType} />
+      </div>
     </>
   );
 }

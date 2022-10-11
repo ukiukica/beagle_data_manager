@@ -22,18 +22,32 @@ function SpecList({ specType }) {
     <>
       {specList && (
         <>
-          {specList.map((spec) => (
-            <div key={spec[0]}>
-              <Spec
-                specType={specType}
-                specData={spec[1]}
-                setReload={setReload}
-              />
-              <br />
-              <br />
-            </div>
-          ))}
-          <Spec specType={specType} setReload={setReload} />
+          {/* <table>
+            <thead> */}
+              {/* <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Verified Email</th>
+                <th>Phone Number</th>
+                <th>Last Login</th>
+                <th>Role</th>
+                <th>Auth Provider</th>
+                <th>Created At</th>
+                <th>Updated At</th>
+              </tr> */}
+            {/* </thead>
+            </table> */}
+              {specList.map((spec) => (
+                      <Spec
+                        specType={specType}
+                        specData={spec[1]}
+                        setReload={setReload}
+                        key={spec[0]}
+                      />
+              ))}
+              <Spec specType={specType} setReload={setReload} />
+
         </>
       )}
     </>
