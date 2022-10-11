@@ -6,6 +6,7 @@ import LookupForm from './LookupForm';
 import SpecForm from './SpecForm'
 
 import "./stylesheets/App.css"
+import "./stylesheets/global.css"
 
 function App() {
   const [specName, setSpecName] = useState('user');
@@ -34,7 +35,7 @@ function App() {
 
   return (
     <div>
-      <h1>Beagle Data Manager</h1>
+      <h1 id="title">Beagle Data Manager</h1>
       {/* <div>
         <LookupForm onLoad={handleLoad} />
       </div>

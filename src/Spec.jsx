@@ -69,113 +69,110 @@ function Spec({ specType, specData, setReload }) {
   };
 
   return (
-    <>
+    <div id="spec">
       {formValues && (
         <form onSubmit={onSubmit}>
-          {/* <tr> */}
-            {/* <td> */}
-              <InputField
-                fieldName={"name"}
-                type={"text"}
-                value={formValues["name"] || ""}
-                setFormValues={setFormValues}
-              />
-            {/* </td> */}
-            {/* <td> */}
-              <InputField
-                fieldName={"email"}
-                type={"text"}
-                value={formValues["email"] || ""}
-                setFormValues={setFormValues}
-              />
-            {/* </td> */}
-            {/* <td> */}
-              <InputField
-                fieldName={"password"}
-                type={"text"}
-                value={formValues["password"] || ""}
-                setFormValues={setFormValues}
-              />
-            {/* </td> */}
-            {/* <td> */}
-              <SelectField
-                fieldName={"verified_email"}
-                options={["true", "false"]}
-                value={formValues["verified_email"] || ""}
-                setFormValues={setFormValues}
-              />
-            {/* </td> */}
-            {/* <td> */}
-              <InputField
-                fieldName={"phone_number"}
-                type={"text"}
-                value={
-                  (formValues["phone_number"] &&
-                    new AsYouType().input(formValues["phone_number"])) ||
-                  ""
-                }
-                setFormValues={setFormValues}
-              />
-            {/* </td> */}
-            {/* <td> */}
-              <InputField
-                fieldName={"last_login"}
-                type={"datetime-local"}
-                value={formValues["last_login"] || ""}
-                setFormValues={setFormValues}
-              />
-            {/* </td> */}
-            {/* <td> */}
-              <SelectField
-                fieldName={"role"}
-                options={["customer", "employee", "admin"]}
-                value={formValues["role"] || ""}
-                setFormValues={setFormValues}
-              />
-            {/* </td> */}
-            {/* <td> */}
-              <SelectField
-                fieldName={"auth_provider"}
-                options={["email", "phone", "apple", "google", "facebook"]}
-                value={formValues["auth_provider"] || ""}
-                setFormValues={setFormValues}
-              />
-            {/* </td> */}
-            {/* <td> */}
-              <InputField
-                fieldName={"created_at"}
-                type={"datetime-local"}
-                value={formValues["created_at"] || ""}
-                setFormValues={setFormValues}
-              />
-            {/* </td> */}
-            {/* <td> */}
-              <InputField
-                fieldName={"updated_at"}
-                type={"datetime-local"}
-                value={formValues["updated_at"] || ""}
-                setFormValues={setFormValues}
-              />
-            {/* </td> */}
-            {/* <td> */}
-              <button type="submit">Save</button>
-              {/* </td> */}
-              {formValues["id"] && (
-                // <td>
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    onDelete(specType, id);
-                  }}
-                >
-                  Delete
-                </button>
-                // </td>
-              )}
-          {/* </tr> */}
+          <InputField
+            id={"name-input"}
+            fieldName={"name"}
+            type={"text"}
+            value={formValues["name"] || ""}
+            setFormValues={setFormValues}
+          />
+
+          <InputField
+            id={"email-input"}
+            fieldName={"email"}
+            type={"text"}
+            value={formValues["email"] || ""}
+            setFormValues={setFormValues}
+          />
+
+          <InputField
+            id={"pass-input"}
+            fieldName={"password"}
+            type={"text"}
+            value={formValues["password"] || ""}
+            setFormValues={setFormValues}
+          />
+
+          <SelectField
+            id={"verif-select"}
+            fieldName={"verified_email"}
+            options={["true", "false"]}
+            value={formValues["verified_email"] || ""}
+            setFormValues={setFormValues}
+          />
+
+          <InputField
+            id={"phone-input"}
+            fieldName={"phone_number"}
+            type={"text"}
+            value={
+              (formValues["phone_number"] &&
+                new AsYouType().input(formValues["phone_number"])) ||
+              ""
+            }
+            setFormValues={setFormValues}
+          />
+
+          <InputField
+            id={"login-input"}
+            fieldName={"last_login"}
+            type={"datetime-local"}
+            value={formValues["last_login"] || ""}
+            setFormValues={setFormValues}
+          />
+
+          <SelectField
+            id={"role-select"}
+            fieldName={"role"}
+            options={["customer", "employee", "admin"]}
+            value={formValues["role"] || ""}
+            setFormValues={setFormValues}
+          />
+
+          <SelectField
+            id={"auth-select"}
+            fieldName={"auth_provider"}
+            options={["email", "phone", "apple", "google", "facebook"]}
+            value={formValues["auth_provider"] || ""}
+            setFormValues={setFormValues}
+          />
+
+          <InputField
+            id={"create-input"}
+            fieldName={"created_at"}
+            type={"datetime-local"}
+            value={formValues["created_at"] || ""}
+            setFormValues={setFormValues}
+          />
+
+          <InputField
+            id={"update-input"}
+            fieldName={"updated_at"}
+            type={"datetime-local"}
+            value={formValues["updated_at"] || ""}
+            setFormValues={setFormValues}
+          />
+
+          <button id="sub-btn" type="submit">
+            Save
+          </button>
+
+          <button
+            id="del-btn"
+            className={formValues["id"] ? "" : "hidden"}
+            onClick={(e) => {
+              e.preventDefault();
+              onDelete(specType, id);
+            }}
+          >
+            Delete
+          </button>
         </form>
       )}
-    </>
+    </div>
   );
 }
 

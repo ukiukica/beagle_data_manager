@@ -1,3 +1,8 @@
+#title {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
 #collections {
     display: flex;
     justify-content: center;
@@ -11,20 +16,59 @@
 }
 
 #spec-list {
-    max-width: 1400px;
+    max-width: 1500px;
     border: 1px black solid;
     overflow-x: scroll;
 }
 
 #list-header {
     display: flex;
+    width: 1450px;
+    justify-content: center;
 }
 
-#list-header > * {
-    margin-right: 20px;
+#spec {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
 }
 
-.input-field {
-    max-width: 150px;
-    margin-right:
+#name-input {
+    min-width: 10%;
+}
+
+#email-input {
+    width: 10%;
+}
+
+#pass-input {
+    width: 8%;
+}
+
+#verif-select {
+    width: 8%;
+}
+
+#phone-input {
+    width: 8%;
+}
+
+#login-input {
+    width: 12%;
+}
+
+#role-select {
+    width: 8%;
+}
+
+#auth-select {
+    width: 8%;
+}
+
+#create-input {
+    width: 12%;
+}
+
+#update-input {
+    width: 12%;
 }
