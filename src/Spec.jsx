@@ -11,7 +11,6 @@ import SelectField from "./SelectField";
 function Spec({ specType, specData, setReload }) {
   const [formValues, setFormValues] = useState([]);
   const [id, setId] = useState();
-  const [test, setTest] = useState(false);
 
   useEffect(() => {
     if (!specData) {

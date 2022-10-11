@@ -17,7 +17,7 @@ const config = {
   storageBucket: "nicheapp-7874c.appspot.com",
   messagingSenderId: "734224053501",
   appId: "1:734224053501:web:d0a65c7f4fbee7cacd3a94",
-  measurementId: "G-B4ZLPTMTB8"
+  measurementId: "G-B4ZLPTMTB8",
 };
 initializeApp(config);
 
@@ -26,11 +26,11 @@ export const db = getFirestore();
 export const getSpecList = async (specType) => {
   const specList = [];
   const res = await getDocs(collection(db, specType));
-  res.forEach(doc => {
-    specList.push([doc.id, doc.data()])
+  res.forEach((doc) => {
+    specList.push([doc.id, doc.data()]);
   });
   return specList;
-}
+};
 
 export const getSpec = async (path) => {
   const docRef = doc(db, path);
@@ -53,9 +53,6 @@ export const updateSpec = async (path, values) => {
 };
 
 export const deleteSpec = async (path) => {
-  console.log("IN DELETE")
-  console.log("path", path)
-    const docRef = doc(db, path);
-    await deleteDoc(docRef);
-    console.log("AFTER AWAIT")
-  };
+  const docRef = doc(db, path);
+  await deleteDoc(docRef);
+};

@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState } from "react";
 import SpecList from "./SpecList";
 
 function Collections() {
-  const [specType, setSpecType] = useState();
+  const [specType, setSpecType] = useState("user");
 
   return (
     <>
