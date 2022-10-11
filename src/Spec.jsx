@@ -68,3 +68,5 @@ function Spec({ specData, setFormValues }) {
     </>
   );
 }
+
+export default Spec;
