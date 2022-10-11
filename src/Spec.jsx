@@ -7,7 +7,7 @@ import InputField from "./InputField";
 import SelectField from "./SelectField";
 
 function Spec({ specType, specData, setReload }) {
-  const [formValues, setFormValues] = useState();
+  const [formValues, setFormValues] = useState([]);
   const [id, setId] = useState();
   // console.log("specData", specData)
   console.log("formValues", formValues);
@@ -27,10 +27,12 @@ function Spec({ specType, specData, setReload }) {
     if (id === null) {
       id = uuidv4();
       await createSpec(`${specType}/${id}`, { id, ...values });
+      setReload(true);
       return;
     }
 
     await updateSpec(`${specType}/${id}`, values);
+    setReload(true);
   }, []);
 
   const handleSubmit = useCallback(() => {
@@ -53,7 +55,7 @@ function Spec({ specType, specData, setReload }) {
             e.preventDefault();
             handleSubmit();
             alert("Spec successfully saved!");
-            // setFormValues({});
+            setFormValues({});
           }}
         >
           <div>
@@ -119,6 +121,7 @@ function Spec({ specType, specData, setReload }) {
             />
           </div>
           <button type="submit">Save</button>
+          {formValues["id"] && (
           <button
             onClick={(e) => {
               e.preventDefault();
@@ -127,6 +130,7 @@ function Spec({ specType, specData, setReload }) {
           >
             Delete
           </button>
+          )}
         </form>
       )}
     </>

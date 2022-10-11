@@ -12,6 +12,7 @@ function Collections() {
         <div onClick={() => setSpecType("order")}>Orders</div>
         <div onClick={() => setSpecType("shopping_cart")}>Shopping Carts</div>
       </div>
+      <br />
 
       <SpecList specType={specType} />
     </>
