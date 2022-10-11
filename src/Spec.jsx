@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { uuidv4 } from "@firebase/util";
 import { createSpec, getSpec, updateSpec, deleteSpec } from "./firebase";
+import parsePhoneNumber from "libphonenumber-js";
+import { AsYouType } from "libphonenumber-js";
 // import { Timestamp } from "@firebase/firestore";
 
 import InputField from "./InputField";
@@ -9,9 +11,10 @@ import SelectField from "./SelectField";
 function Spec({ specType, specData, setReload }) {
   const [formValues, setFormValues] = useState([]);
   const [id, setId] = useState();
+  const [test, setTest] = useState(false);
   // console.log("specData", specData)
-  console.log("formValues", formValues);
-  console.log("id", id);
+  // console.log("formValues", formValues);
+  // console.log("id", id);
   // if (formValues) console.log("date", formValues["updated_at"]?.toDate().toISOString())
 
   useEffect(() => {
@@ -22,6 +25,7 @@ function Spec({ specType, specData, setReload }) {
     setFormValues(specData);
     setId(specData.id);
   }, [specData]);
+
 
   const handleSave = useCallback(async (specType, id, values) => {
     if (id === null) {
@@ -41,23 +45,39 @@ function Spec({ specType, specData, setReload }) {
 
   const onDelete = useCallback(async (specType, id) => {
     // e.preventDefault();
-    console.log("IN onDelete, path", `${specType}/${id}`);
+    // console.log("IN onDelete, path", `${specType}/${id}`);
     if (confirm("Are you sure you want to delete the selected spec?")) {
       await deleteSpec(`${specType}/${id}`);
       setReload(true);
     } else return;
   }, []);
+
+  function normalizeData() {
+    // console.log("in normalizeData");
+    const phoneNumber = formValues["phone_number"];
+    // console.log("phoneNumber", phoneNumber);
+    const lastLogin = formValues["last_login"];
+    const createdAt = formValues["created_at"];
+    const updatedAt = formValues["updated_at"];
+
+   setFormValues((prevFormValues) => ({
+      ...prevFormValues,
+      ["name"]: "gotcha",
+    }));
+  }
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    // normalizeData();
+    handleSubmit();
+    alert("Spec successfully saved!");
+    setFormValues({})
+  };
+
   return (
     <>
       {formValues && (
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleSubmit();
-            alert("Spec successfully saved!");
-            setFormValues({});
-          }}
-        >
+        <form onSubmit={onSubmit}>
           <div>
             <InputField
               fieldName={"name"}
@@ -86,12 +106,16 @@ function Spec({ specType, specData, setReload }) {
             <InputField
               fieldName={"phone_number"}
               type={"text"}
-              value={formValues["phone_number"] || ""}
+              value={
+                (formValues["phone_number"] &&
+                  new AsYouType().input(formValues["phone_number"])) ||
+                ""
+              }
               setFormValues={setFormValues}
             />
             <InputField
               fieldName={"last_login"}
-              type={"text"}
+              type={"datetime-local"}
               value={formValues["last_login"] || ""}
               setFormValues={setFormValues}
             />
@@ -109,27 +133,27 @@ function Spec({ specType, specData, setReload }) {
             />
             <InputField
               fieldName={"created_at"}
-              type={"text"}
+              type={"datetime-local"}
               value={formValues["created_at"] || ""}
               setFormValues={setFormValues}
             />
             <InputField
               fieldName={"updated_at"}
-              type={"text"}
+              type={"datetime-local"}
               value={formValues["updated_at"] || ""}
               setFormValues={setFormValues}
             />
           </div>
           <button type="submit">Save</button>
           {formValues["id"] && (
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              onDelete(specType, id);
-            }}
-          >
-            Delete
-          </button>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                onDelete(specType, id);
+              }}
+            >
+              Delete
+            </button>
           )}
         </form>
       )}
