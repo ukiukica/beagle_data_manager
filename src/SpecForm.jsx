@@ -2,10 +2,8 @@ import React, { useState, useEffect, useCallback } from "react";
 
 const SpecForm = ({ specName, id, existingFieldValues, onSave }) => {
   const [formValues, setFormValues] = useState({});
-  console.log("formValues", formValues);
 
   const formValuesArr = Object.entries(formValues);
-  // console.log("formValuesArr", formValuesArr);
 
   useEffect(() => {
     if (!existingFieldValues) {
@@ -35,17 +33,11 @@ const SpecForm = ({ specName, id, existingFieldValues, onSave }) => {
               type="text"
               name={pair[0]}
               value={pair[1]}
-              // onChange={(e) => {
-              //   setFormValues({
-              //     ...formValues,
-              //     [e.target.name]: e.target.value
-              //   });
-              // }}
               onChange={(e) => {
-                setFormValues(prevFormValues =>({
+                setFormValues((prevFormValues) => ({
                   ...prevFormValues,
-                  [e.target.name]: e.target.value
-                }))
+                  [e.target.name]: e.target.value,
+                }));
               }}
             />
           </label>

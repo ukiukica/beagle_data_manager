@@ -1,0 +1,74 @@
+#title {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+#collections {
+    display: flex;
+    justify-content: center;
+    font-size: 22px;
+}
+
+#collections > * {
+    cursor: pointer;
+    margin-right: 30px;
+    margin-left: 30px;
+}
+
+#spec-list {
+    max-width: 1500px;
+    border: 1px black solid;
+    overflow-x: scroll;
+}
+
+#list-header {
+    display: flex;
+    width: 1450px;
+    justify-content: center;
+}
+
+#spec {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+#name-input {
+    min-width: 10%;
+}
+
+#email-input {
+    width: 10%;
+}
+
+#pass-input {
+    width: 8%;
+}
+
+#verif-select {
+    width: 8%;
+}
+
+#phone-input {
+    width: 8%;
+}
+
+#login-input {
+    width: 12%;
+}
+
+#role-select {
+    width: 8%;
+}
+
+#auth-select {
+    width: 8%;
+}
+
+#create-input {
+    width: 12%;
+}
+
+#update-input {
+    width: 12%;
+}
