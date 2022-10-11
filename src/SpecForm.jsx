@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useCallback } from "react";
-import InputField from "./InputField";
+
 
 const SpecForm = ({ specName, id, existingFieldValues, onSave }) => {
   const [formValues, setFormValues] = useState({});
-  console.log("formValues", formValues);
+  // console.log("formValues", formValues);
 
   const formValuesArr = Object.entries(formValues);
   // console.log("formValuesArr", formValuesArr);
@@ -43,21 +43,19 @@ const SpecForm = ({ specName, id, existingFieldValues, onSave }) => {
               //   });
               // }}
               onChange={(e) => {
-                setFormValues((prevFormValues) => ({
+                setFormValues(prevFormValues =>({
                   ...prevFormValues,
-                  [e.target.name]: e.target.value,
-                }));
+                  [e.target.name]: e.target.value
+                }))
               }}
             />
           </label>
         </div>
       ))}
-
       <div>
         <h2>Structured</h2>
-        
         <div>
-          <InputField />
+
         </div>
         <button type="submit">Save</button>
       </div>

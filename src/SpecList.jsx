@@ -4,8 +4,7 @@ import Spec from "./Spec";
 
 function SpecList({ specType }) {
   const [specList, setSpecList] = useState();
-  const [formValues, setFormValues] = useState({});
-  console.log("specList", specList);
+  // console.log("specList", specList);
 
   useEffect(() => {
     if (specType) {
@@ -22,7 +21,12 @@ function SpecList({ specType }) {
       {specList &&
         specList.map((spec) => (
           <div key={spec[0]}>
-            <Spec specData={spec[1]} setFormValues={setFormValues} />
+            <Spec
+              specType={specType}
+              specData={spec[1]}
+            />
+            <br />
+            <br />
           </div>
         ))}
       )}
