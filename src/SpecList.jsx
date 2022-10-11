@@ -4,6 +4,7 @@ import Spec from "./Spec";
 
 function SpecList({ specType }) {
   const [specList, setSpecList] = useState();
+  const [reload, setReload] = useState(false)
   // console.log("specList", specList);
 
   useEffect(() => {
@@ -14,7 +15,7 @@ function SpecList({ specType }) {
       }
       fetchData();
     }
-  }, [specType]);
+  }, [specType, reload]);
 
   return (
     <>
@@ -24,12 +25,12 @@ function SpecList({ specType }) {
             <Spec
               specType={specType}
               specData={spec[1]}
+              setReload={setReload}
             />
             <br />
             <br />
           </div>
         ))}
-      )}
     </>
   );
 }

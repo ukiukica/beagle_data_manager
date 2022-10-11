@@ -53,6 +53,9 @@ export const updateSpec = async (path, values) => {
 };
 
 export const deleteSpec = async (path) => {
+  console.log("IN DELETE")
+  console.log("path", path)
     const docRef = doc(db, path);
     await deleteDoc(docRef);
+    console.log("AFTER AWAIT")
   };
