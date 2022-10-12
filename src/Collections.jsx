@@ -7,7 +7,7 @@ function Collections() {
   const [specs, setSpecs] = useState();
   const [specType, setSpecType] = useState("user");
 
-  console.log("specs", specs);
+  // console.log("specs", specs);
 
   useEffect(() => {
     async function fetchData() {

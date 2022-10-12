@@ -7,6 +7,7 @@ import {
   normalizeData,
   fieldTypeSelector,
   fieldOptionsSelector,
+  formatFieldName
 } from "./utilities";
 
 import InputField from "./InputField";
@@ -64,8 +65,24 @@ function Spec({ specType, specData, setReload, labelOnly }) {
     } else return;
   }, []);
 
+  const validateData = (fields, formValues) => {
+    if (fields) {
+      const requiredFields = Object.keys(fields);
+      const missingFields = [];
+      requiredFields.forEach((field) => {
+        if (!formValues[field]) missingFields.push(formatFieldName(field));
+      });
+      return missingFields.join(", ");
+    }
+  };
+
   const onSubmit = async (e) => {
     e.preventDefault();
+    console.log("formValues", formValues);
+    const  validator = validateData(fields, formValues)
+    if (validator) {
+     return alert(`Please fill out the following field(s): ${validator}`)
+    }
     const payload = normalizeData(formValues);
     handleSubmit(payload);
     alert("Spec successfully saved!");
@@ -80,6 +97,7 @@ function Spec({ specType, specData, setReload, labelOnly }) {
             Object.keys(fields).map((field) =>
               fieldTypeSelector(field) === "select" ? (
                 <SelectField
+                  key={field}
                   fieldName={field}
                   options={fieldOptionsSelector(fields, field)}
                   value={formValues[field] || ""}
@@ -88,6 +106,7 @@ function Spec({ specType, specData, setReload, labelOnly }) {
                 />
               ) : (
                 <InputField
+                  key={field}
                   fieldName={field}
                   type={fieldTypeSelector(field)}
                   value={formValues[field] || ""}
