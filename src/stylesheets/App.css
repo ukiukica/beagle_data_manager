@@ -29,10 +29,10 @@
 #spec {
     display: flex;
     justify-content: center;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
-#name-input {
+/* #name-input {
     min-width: 10%;
 }
 
@@ -70,4 +70,16 @@
 
 #update-input {
     width: 12%;
+} */
+
+.field-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: fit-content;
+}
+
+#field-label {
+    display: flex;
+    flex-wrap: wrap;
 }

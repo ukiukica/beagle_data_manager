@@ -8,7 +8,7 @@ import { AsYouType } from "libphonenumber-js";
 import InputField from "./InputField";
 import SelectField from "./SelectField";
 
-function Spec({ specType, specData, setReload }) {
+function Spec({ specType, specData, setReload, labelOnly }) {
   const [formValues, setFormValues] = useState([]);
   const [id, setId] = useState();
 
@@ -77,6 +77,7 @@ function Spec({ specType, specData, setReload }) {
             type={"text"}
             value={formValues["name"] || ""}
             setFormValues={setFormValues}
+            labelOnly={labelOnly}
           />
 
           <InputField
@@ -85,6 +86,7 @@ function Spec({ specType, specData, setReload }) {
             type={"text"}
             value={formValues["email"] || ""}
             setFormValues={setFormValues}
+            labelOnly={labelOnly}
           />
 
           <InputField
@@ -93,6 +95,7 @@ function Spec({ specType, specData, setReload }) {
             type={"text"}
             value={formValues["password"] || ""}
             setFormValues={setFormValues}
+            labelOnly={labelOnly}
           />
 
           <SelectField
@@ -101,6 +104,7 @@ function Spec({ specType, specData, setReload }) {
             options={["true", "false"]}
             value={formValues["verified_email"] || ""}
             setFormValues={setFormValues}
+            labelOnly={labelOnly}
           />
 
           <InputField
@@ -113,6 +117,7 @@ function Spec({ specType, specData, setReload }) {
               ""
             }
             setFormValues={setFormValues}
+            labelOnly={labelOnly}
           />
 
           <InputField
@@ -121,6 +126,7 @@ function Spec({ specType, specData, setReload }) {
             type={"datetime-local"}
             value={formValues["last_login"] || ""}
             setFormValues={setFormValues}
+            labelOnly={labelOnly}
           />
 
           <SelectField
@@ -129,6 +135,7 @@ function Spec({ specType, specData, setReload }) {
             options={["customer", "employee", "admin"]}
             value={formValues["role"] || ""}
             setFormValues={setFormValues}
+            labelOnly={labelOnly}
           />
 
           <SelectField
@@ -137,6 +144,7 @@ function Spec({ specType, specData, setReload }) {
             options={["email", "phone", "apple", "google", "facebook"]}
             value={formValues["auth_provider"] || ""}
             setFormValues={setFormValues}
+            labelOnly={labelOnly}
           />
 
           <InputField
@@ -145,6 +153,7 @@ function Spec({ specType, specData, setReload }) {
             type={"datetime-local"}
             value={formValues["created_at"] || ""}
             setFormValues={setFormValues}
+            labelOnly={labelOnly}
           />
 
           <InputField
@@ -153,9 +162,13 @@ function Spec({ specType, specData, setReload }) {
             type={"datetime-local"}
             value={formValues["updated_at"] || ""}
             setFormValues={setFormValues}
+            labelOnly={labelOnly}
           />
 
-          <button id="sub-btn" type="submit">
+          <button
+          className={labelOnly ? "no-display" : ""}
+          id="sub-btn"
+          type="submit">
             Save
           </button>
 
