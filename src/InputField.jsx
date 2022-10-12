@@ -1,19 +1,30 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { AsYouType } from "libphonenumber-js";
 
-function InputField({ id, fieldName, type, value, setFormValues }) {
+import { formatFieldName } from "./utilities";
+
+function InputField({ labelOnly, id, fieldName, type, value, setFormValues }) {
   return (
-    <input
-      id={id}
-      type={type}
-      name={fieldName}
-      value={value}
-      onChange={(e) => {
-        setFormValues((prevFormValues) => ({
-          ...prevFormValues,
-          [e.target.name]: e.target.value,
-        }));
-      }}
-    />
+    <div className="field-div">
+      <label className={labelOnly ? "" : "no-display"} id="field-label">
+        {formatFieldName(fieldName)}
+      </label>
+      <input
+        className={labelOnly ? "no-display" : ""}
+        id={id}
+        type={type}
+        name={fieldName}
+        value={
+          fieldName === "phone_number" ? new AsYouType().input(value) : value
+        }
+        onChange={(e) => {
+          setFormValues((prevFormValues) => ({
+            ...prevFormValues,
+            [e.target.name]: e.target.value,
+          }));
+        }}
+      />
+    </div>
   );
 }
 

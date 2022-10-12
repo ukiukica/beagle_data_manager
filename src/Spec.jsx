@@ -1,16 +1,26 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { uuidv4 } from "@firebase/util";
-import { createSpec, getSpec, updateSpec, deleteSpec } from "./firebase";
-import parsePhoneNumber from "libphonenumber-js";
-import { AsYouType } from "libphonenumber-js";
 // import { Timestamp } from "@firebase/firestore";
+import { validate } from "email-validator";
+import { isValidPhoneNumber } from "libphonenumber-js";
+
+import { createSpec, getSpec, updateSpec, deleteSpec } from "./firebase";
+import {
+  normalizeData,
+  fieldTypeSelector,
+  fieldOptionsSelector,
+  validateFields,
+  validateCurrent,
+} from "./utilities";
 
 import InputField from "./InputField";
 import SelectField from "./SelectField";
 
-function Spec({ specType, specData, setReload }) {
-  const [formValues, setFormValues] = useState([]);
+function Spec({ specType, specData, setReload, labelOnly }) {
+  const [formValues, setFormValues] = useState();
   const [id, setId] = useState();
+  const [fields, setFields] = useState();
+  const [updatedAt, setUpdatedAt] = useState();
 
   useEffect(() => {
     if (!specData) {
@@ -19,7 +29,20 @@ function Spec({ specType, specData, setReload }) {
 
     setFormValues(specData);
     setId(specData.id);
+    setUpdatedAt(specData.updated_at);
   }, [specData]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const res = await fetch(
+        "https://beagleschema.demcrepl.repl.co/specs/user/schema"
+      );
+      const data = await res.json();
+      setFields(data["fields"]);
+    }
+
+    fetchData();
+  }, []);
 
   const handleSave = useCallback(async (specType, id, values) => {
     if (id === null) {
@@ -47,115 +70,67 @@ function Spec({ specType, specData, setReload }) {
     } else return;
   }, []);
 
-  function normalizeData() {
-    let payload = { ...formValues };
-    console.log("payload", payload);
-    const phoneNumber = payload["phone_number"];
-    // const lastLogin = payload["last_login"];
-    // const createdAt = payload["created_at"];
-    // const updatedAt = payload["updated_at"];
-
-    payload.phone_number = parsePhoneNumber(phoneNumber).number;
-    return payload;
-  }
-
   const onSubmit = async (e) => {
-    e.preventDefault();
-    const payload = normalizeData();
-    handleSubmit(payload);
-    alert("Spec successfully saved!");
-    setFormValues({});
+    if (formValues && fields) {
+      e.preventDefault();
+      // console.log("formValues", formValues);
+
+      const fieldValidator = validateFields(fields, formValues);
+      if (fieldValidator)
+        return alert(
+          `Please fill out the following field(s): ${fieldValidator}`
+        );
+      if (!validate(formValues["email"]))
+        return alert("Email is invalid. Please try again.");
+      if (!isValidPhoneNumber(formValues["phone_number"]))
+        return alert("Phone Number is invalid. Please try again.");
+      if (validateCurrent(updatedAt, specType, id)) {
+        setReload(true);
+        return alert(
+          "There is a new version of this spec. Data will be reloaded."
+        );
+      }
+
+      const payload = normalizeData(formValues);
+      // console.log("payload", payload)
+      handleSubmit(payload);
+      alert("Spec successfully saved!");
+      setFormValues({});
+    }
   };
 
   return (
     <div id="spec">
       {formValues && (
         <form onSubmit={onSubmit}>
-          <InputField
-            id={"name-input"}
-            fieldName={"name"}
-            type={"text"}
-            value={formValues["name"] || ""}
-            setFormValues={setFormValues}
-          />
+          {fields &&
+            Object.keys(fields).map((field) =>
+              fieldTypeSelector(field) === "select" ? (
+                <SelectField
+                  key={field}
+                  fieldName={field}
+                  options={fieldOptionsSelector(fields, field)}
+                  value={formValues[field] || ""}
+                  setFormValues={setFormValues}
+                  labelOnly={labelOnly}
+                />
+              ) : (
+                <InputField
+                  key={field}
+                  fieldName={field}
+                  type={fieldTypeSelector(field)}
+                  value={formValues[field] || ""}
+                  setFormValues={setFormValues}
+                  labelOnly={labelOnly}
+                />
+              )
+            )}
 
-          <InputField
-            id={"email-input"}
-            fieldName={"email"}
-            type={"text"}
-            value={formValues["email"] || ""}
-            setFormValues={setFormValues}
-          />
-
-          <InputField
-            id={"pass-input"}
-            fieldName={"password"}
-            type={"text"}
-            value={formValues["password"] || ""}
-            setFormValues={setFormValues}
-          />
-
-          <SelectField
-            id={"verif-select"}
-            fieldName={"verified_email"}
-            options={["true", "false"]}
-            value={formValues["verified_email"] || ""}
-            setFormValues={setFormValues}
-          />
-
-          <InputField
-            id={"phone-input"}
-            fieldName={"phone_number"}
-            type={"text"}
-            value={
-              (formValues["phone_number"] &&
-                new AsYouType().input(formValues["phone_number"])) ||
-              ""
-            }
-            setFormValues={setFormValues}
-          />
-
-          <InputField
-            id={"login-input"}
-            fieldName={"last_login"}
-            type={"datetime-local"}
-            value={formValues["last_login"] || ""}
-            setFormValues={setFormValues}
-          />
-
-          <SelectField
-            id={"role-select"}
-            fieldName={"role"}
-            options={["customer", "employee", "admin"]}
-            value={formValues["role"] || ""}
-            setFormValues={setFormValues}
-          />
-
-          <SelectField
-            id={"auth-select"}
-            fieldName={"auth_provider"}
-            options={["email", "phone", "apple", "google", "facebook"]}
-            value={formValues["auth_provider"] || ""}
-            setFormValues={setFormValues}
-          />
-
-          <InputField
-            id={"create-input"}
-            fieldName={"created_at"}
-            type={"datetime-local"}
-            value={formValues["created_at"] || ""}
-            setFormValues={setFormValues}
-          />
-
-          <InputField
-            id={"update-input"}
-            fieldName={"updated_at"}
-            type={"datetime-local"}
-            value={formValues["updated_at"] || ""}
-            setFormValues={setFormValues}
-          />
-
-          <button id="sub-btn" type="submit">
+          <button
+            className={labelOnly ? "no-display" : ""}
+            id="sub-btn"
+            type="submit"
+          >
             Save
           </button>
 

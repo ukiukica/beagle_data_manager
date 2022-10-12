@@ -1,9 +1,13 @@
 import React, { useState, useEffect, useCallback } from "react";
 
-function SelectField({ fieldName, options, value, setFormValues }) {
+import {formatFieldName} from "./utilities";
+
+function SelectField({ labelOnly, fieldName, options, value, setFormValues }) {
   return (
-    <>
+    <div className="field-div">
+      <label className={labelOnly ? "" : "no-display"}>{formatFieldName(fieldName)}</label>
       <select
+        className={labelOnly ? "no-display" : ""}
         name={fieldName}
         value={value}
         onChange={(e) => {
@@ -20,7 +24,7 @@ function SelectField({ fieldName, options, value, setFormValues }) {
           </option>
         ))}
       </select>
-    </>
+    </div>
   );
 }
 
