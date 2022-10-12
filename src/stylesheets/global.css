@@ -17,5 +17,6 @@ input {
 }
 
 select {
-    min-width: 50px;
+    min-width: 100px;
+    text-align: center;
 }
