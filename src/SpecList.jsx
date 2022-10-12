@@ -5,6 +5,7 @@ import Spec from "./Spec";
 function SpecList({ specType }) {
   const [specList, setSpecList] = useState();
   const [reload, setReload] = useState(true);
+  // console.log("specList", specList)
 
   useEffect(() => {
     if (specType && reload) {

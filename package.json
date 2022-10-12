@@ -11,6 +11,7 @@
   "dependencies": {
     "@firebase/app": "^0.7.30",
     "@firebase/firestore": "^3.4.14",
+    "email-validator": "^2.0.4",
     "firebase": "^9.11.0",
     "libphonenumber-js": "^1.10.13",
     "react": "^18.2.0",

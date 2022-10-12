@@ -1,13 +1,16 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { uuidv4 } from "@firebase/util";
 // import { Timestamp } from "@firebase/firestore";
+import { validate } from "email-validator";
+import { isValidPhoneNumber } from "libphonenumber-js";
 
 import { createSpec, getSpec, updateSpec, deleteSpec } from "./firebase";
 import {
   normalizeData,
   fieldTypeSelector,
   fieldOptionsSelector,
-  formatFieldName
+  validateFields,
+  validateCurrent,
 } from "./utilities";
 
 import InputField from "./InputField";
@@ -17,6 +20,7 @@ function Spec({ specType, specData, setReload, labelOnly }) {
   const [formValues, setFormValues] = useState();
   const [id, setId] = useState();
   const [fields, setFields] = useState();
+  const [updatedAt, setUpdatedAt] = useState();
 
   useEffect(() => {
     if (!specData) {
@@ -25,6 +29,7 @@ function Spec({ specType, specData, setReload, labelOnly }) {
 
     setFormValues(specData);
     setId(specData.id);
+    setUpdatedAt(specData.updated_at);
   }, [specData]);
 
   useEffect(() => {
@@ -65,28 +70,33 @@ function Spec({ specType, specData, setReload, labelOnly }) {
     } else return;
   }, []);
 
-  const validateData = (fields, formValues) => {
-    if (fields) {
-      const requiredFields = Object.keys(fields);
-      const missingFields = [];
-      requiredFields.forEach((field) => {
-        if (!formValues[field]) missingFields.push(formatFieldName(field));
-      });
-      return missingFields.join(", ");
-    }
-  };
-
   const onSubmit = async (e) => {
-    e.preventDefault();
-    console.log("formValues", formValues);
-    const  validator = validateData(fields, formValues)
-    if (validator) {
-     return alert(`Please fill out the following field(s): ${validator}`)
+    if (formValues && fields) {
+      e.preventDefault();
+      // console.log("formValues", formValues);
+
+      const fieldValidator = validateFields(fields, formValues);
+      if (fieldValidator)
+        return alert(
+          `Please fill out the following field(s): ${fieldValidator}`
+        );
+      if (!validate(formValues["email"]))
+        return alert("Email is invalid. Please try again.");
+      if (!isValidPhoneNumber(formValues["phone_number"]))
+        return alert("Phone Number is invalid. Please try again.");
+      if (validateCurrent(updatedAt, specType, id)) {
+        setReload(true);
+        return alert(
+          "There is a new version of this spec. Data will be reloaded."
+        );
+      }
+
+      const payload = normalizeData(formValues);
+      // console.log("payload", payload)
+      handleSubmit(payload);
+      alert("Spec successfully saved!");
+      setFormValues({});
     }
-    const payload = normalizeData(formValues);
-    handleSubmit(payload);
-    alert("Spec successfully saved!");
-    setFormValues({});
   };
 
   return (
