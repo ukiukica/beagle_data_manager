@@ -71,16 +71,18 @@ export const isCurrent = async (updatedAt, specType, id) => {
   const spec = await getSpec(`${specType}/${id}`);
   // console.log("SPEC", spec["created_at"]);
   if (spec && updatedAt) {
-    if (updatedAt.valueOf() < spec.created_at.valueOf()) {
+    // console.log("spec", spec)
+    // console.log("current UpdatedAt", updatedAt.valueOf())
+    // console.log("spec UpdatedAt", spec.updated_at.valueOf())
+    // console.log("spec id", id)
+    if (updatedAt.valueOf() < spec.updated_at.valueOf()) {
       return false;
     } else return true;
   }
 };
 
 export const validateCurrent = async (updatedAt, specType, id) => {
-  if (id !== null) {
-    const isCurrentSpec = await isCurrent(updatedAt, specType, id);
-    if (isCurrentSpec) return true;
-    else return false;
-  }
+  const isCurrentSpec = await isCurrent(updatedAt, specType, id);
+  if (isCurrentSpec) return true;
+  else return false;
 };

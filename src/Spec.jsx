@@ -21,7 +21,7 @@ function Spec({ specType, specData, setReload, labelOnly }) {
   const [id, setId] = useState();
   const [fields, setFields] = useState();
   const [updatedAt, setUpdatedAt] = useState();
-
+  // console.log("id", id)
   useEffect(() => {
     if (!specData) {
       return;
@@ -84,11 +84,14 @@ function Spec({ specType, specData, setReload, labelOnly }) {
         return alert("Email is invalid. Please try again.");
       if (!isValidPhoneNumber(formValues["phone_number"]))
         return alert("Phone Number is invalid. Please try again.");
-      if (validateCurrent(updatedAt, specType, id)) {
-        setReload(true);
-        return alert(
-          "There is a new version of this spec. Data will be reloaded."
-        );
+      if (id) {
+        const isCurrentSpec = await validateCurrent(updatedAt, specType, id);
+        if (!isCurrentSpec) {
+          setReload(true);
+          return alert(
+            "There is a new version of this spec. Data will be reloaded."
+          );
+        }
       }
 
       const payload = normalizeData(formValues);
