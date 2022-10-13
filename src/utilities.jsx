@@ -4,7 +4,6 @@ import { getSpec } from "./firebase";
 
 export const normalizeData = (formValues) => {
   let payload = { ...formValues };
-  // console.log("payload", payload);
   const phoneNumber = payload["phone_number"];
   // const lastLogin = payload["last_login"];
   // const createdAt = payload["created_at"];

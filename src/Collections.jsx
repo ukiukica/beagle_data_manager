@@ -7,13 +7,10 @@ function Collections() {
   const [specs, setSpecs] = useState();
   const [specType, setSpecType] = useState("user");
 
-  // console.log("specs", specs);
-
   useEffect(() => {
     async function fetchData() {
       const res = await fetch("https://beagleschema.demcrepl.repl.co/specs");
       const data = await res.json();
-      // console.log("data", data);
       setSpecs(data["specs"]);
     }
 
