@@ -5,11 +5,15 @@ import { getSpec } from "./firebase";
 export const normalizeData = (formValues) => {
   let payload = { ...formValues };
   const phoneNumber = payload["phone_number"];
+  const currentTime = new Date().toISOString();
+  const formattedTime = currentTime.slice(0, 16);
   // const lastLogin = payload["last_login"];
   // const createdAt = payload["created_at"];
   // const updatedAt = payload["updated_at"];
 
   payload.phone_number = parsePhoneNumber(phoneNumber).number;
+  payload.updated_at = formattedTime;
+  console.log("payload.updated_at", payload.updated_at);
   return payload;
 };
 
