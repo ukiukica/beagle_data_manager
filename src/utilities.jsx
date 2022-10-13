@@ -1,6 +1,6 @@
 import parsePhoneNumber from "libphonenumber-js";
 import { getSpec } from "./firebase";
-import { Timestamp } from "@firebase/firestore";
+// import { Timestamp } from "@firebase/firestore";
 
 export const normalizeData = (formValues) => {
   let payload = { ...formValues };
@@ -69,12 +69,8 @@ export const validateFields = (fields, formValues) => {
 
 export const isCurrent = async (updatedAt, specType, id) => {
   const spec = await getSpec(`${specType}/${id}`);
-  // console.log("SPEC", spec["created_at"]);
+
   if (spec && updatedAt) {
-    // console.log("spec", spec)
-    // console.log("current UpdatedAt", updatedAt.valueOf())
-    // console.log("spec UpdatedAt", spec.updated_at.valueOf())
-    // console.log("spec id", id)
     if (updatedAt.valueOf() < spec.updated_at.valueOf()) {
       return false;
     } else return true;

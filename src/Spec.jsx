@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { uuidv4 } from "@firebase/util";
-// import { Timestamp } from "@firebase/firestore";
 import { validate } from "email-validator";
 import { isValidPhoneNumber } from "libphonenumber-js";
 
@@ -21,7 +20,7 @@ function Spec({ specType, specData, setReload, labelOnly }) {
   const [id, setId] = useState();
   const [fields, setFields] = useState();
   const [updatedAt, setUpdatedAt] = useState();
-  // console.log("id", id)
+
   useEffect(() => {
     if (!specData) {
       return;
@@ -73,7 +72,6 @@ function Spec({ specType, specData, setReload, labelOnly }) {
   const onSubmit = async (e) => {
     if (formValues && fields) {
       e.preventDefault();
-      // console.log("formValues", formValues);
 
       const fieldValidator = validateFields(fields, formValues);
       if (fieldValidator)
@@ -95,7 +93,6 @@ function Spec({ specType, specData, setReload, labelOnly }) {
       }
 
       const payload = normalizeData(formValues);
-      // console.log("payload", payload)
       handleSubmit(payload);
       alert("Spec successfully saved!");
       setFormValues({});
