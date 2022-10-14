@@ -15,7 +15,7 @@ import {
 import InputField from "./InputField";
 import SelectField from "./SelectField";
 
-function Spec({ specType, specData, fields, setReload, labelOnly }) {
+function Spec({ specType, specData, fields, reload, setReload, labelOnly }) {
   const [formValues, setFormValues] = useState();
   const [id, setId] = useState();
 
@@ -43,12 +43,14 @@ function Spec({ specType, specData, fields, setReload, labelOnly }) {
     if (id === null) {
       id = uuidv4();
       await createSpec(`${specType}/${id}`, { id, ...values });
-      setReload(true);
+      // (() => reload ? setReload(false) : setReload(true));
       return;
     }
 
     await updateSpec(`${specType}/${id}`, values);
-    setReload(true);
+    // console.log("after updateSpec", reload);
+    // reload ? setReload(false) : setReload(true);
+    // console.log("after reload change", reload);
   }, []);
 
   const handleSubmit = useCallback(
@@ -61,7 +63,7 @@ function Spec({ specType, specData, fields, setReload, labelOnly }) {
   const onDelete = useCallback(async (specType, id) => {
     if (confirm("Are you sure you want to delete the selected spec?")) {
       await deleteSpec(`${specType}/${id}`);
-      setReload(true);
+      // (() => reload ? setReload(false) : setReload(true));
     } else return;
   }, []);
 
@@ -81,7 +83,7 @@ function Spec({ specType, specData, fields, setReload, labelOnly }) {
       if (id) {
         const isCurrentSpec = await validateCurrent(updatedAt, specType, id);
         if (!isCurrentSpec) {
-          setReload(true);
+          (() => reload ? setReload(false) : setReload(true));
           return alert(
             "There is a new version of this spec. Data will be reloaded."
           );
@@ -91,6 +93,7 @@ function Spec({ specType, specData, fields, setReload, labelOnly }) {
       const payload = normalizeData(formValues);
       handleSubmit(payload);
       alert("Spec successfully saved!");
+      reload ? setReload(false) : setReload(true);
       setFormValues({});
     }
   };

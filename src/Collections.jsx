@@ -6,12 +6,13 @@ import { formatSpec } from "./utilities";
 
 function Collections() {
   const [specs, setSpecs] = useState();
-  const [specType, setSpecType] = useState("user");
+  const [specType, setSpecType] = useState();
+  // console.log("specType", specType)
 
   useEffect(() => {
     async function fetchData() {
       const fetchedSpecs = await getCollections();
-      console.log("fetchedSpecs", fetchedSpecs)
+      // console.log("fetchedSpecs", fetchedSpecs)
       setSpecs(fetchedSpecs);
     }
 

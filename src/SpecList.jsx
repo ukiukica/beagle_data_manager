@@ -6,18 +6,23 @@ function SpecList({ specType }) {
   const [specList, setSpecList] = useState();
   const [reload, setReload] = useState(true);
   const [fields, setFields] = useState();
+  // console.log("specType", specType)
+  console.log("reload", reload)
 
   useEffect(() => {
-    if (specType && reload) {
+    // console.log("top of useEffect", specType)
+    if (specType) {
+      // console.log("top of if statement in useEffect", specType)
       async function fetchData() {
+        // console.log("specType in useEffect", specType)
         const fetchedList = await getSpecList(specType);
         setSpecList(fetchedList);
+        console.log("fetchedList", fetchedList)
         const fetchedFields = await getFields(specType);
         setFields(fetchedFields);
       }
-
       fetchData();
-      setReload(false);
+      // setReload(false);
     }
   }, [specType, reload]);
 
@@ -32,6 +37,7 @@ function SpecList({ specType }) {
               specType={specType}
               specData={spec[1]}
               fields={fields}
+              reload={reload}
               setReload={setReload}
               labelOnly={false}
               key={spec[0]}
@@ -41,6 +47,7 @@ function SpecList({ specType }) {
             specType={specType}
             specData={[]}
             fields={fields}
+            reload={reload}
             setReload={setReload}
             labelOnly={false}
           />

@@ -24,6 +24,7 @@ initializeApp(config);
 export const db = getFirestore();
 
 export const getFields = async (specType) => {
+  // console.log("specType from getFields", specType)
   const res = await fetch(
     `https://beagleschema.demcrepl.repl.co/specs/${specType}/schema`
   );
