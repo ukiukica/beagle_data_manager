@@ -23,6 +23,20 @@ initializeApp(config);
 
 export const db = getFirestore();
 
+export const getFields = async (specType) => {
+  const res = await fetch(
+    `https://beagleschema.demcrepl.repl.co/specs/${specType}/schema`
+  );
+  const data = await res.json();
+  return data.fields;
+};
+
+export const getCollections = async () => {
+  const res = await fetch("https://beagleschema.demcrepl.repl.co/specs");
+  const data = await res.json();
+  return data.specs;
+};
+
 export const getSpecList = async (specType) => {
   const specList = [];
   const res = await getDocs(collection(db, specType));

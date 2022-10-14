@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { getCollections } from "./firebase";
 
 import SpecList from "./SpecList";
 import { formatSpec } from "./utilities";
@@ -9,9 +10,9 @@ function Collections() {
 
   useEffect(() => {
     async function fetchData() {
-      const res = await fetch("https://beagleschema.demcrepl.repl.co/specs");
-      const data = await res.json();
-      setSpecs(data["specs"]);
+      const fetchedSpecs = await getCollections();
+      console.log("fetchedSpecs", fetchedSpecs)
+      setSpecs(fetchedSpecs);
     }
 
     fetchData();

@@ -15,10 +15,10 @@ import {
 import InputField from "./InputField";
 import SelectField from "./SelectField";
 
-function Spec({ specType, specData, setReload, labelOnly }) {
+function Spec({ specType, specData, fields, setReload, labelOnly }) {
   const [formValues, setFormValues] = useState();
   const [id, setId] = useState();
-  const [fields, setFields] = useState();
+
   const [updatedAt, setUpdatedAt] = useState();
 
   useEffect(() => {
@@ -33,11 +33,7 @@ function Spec({ specType, specData, setReload, labelOnly }) {
 
   useEffect(() => {
     async function fetchData() {
-      const res = await fetch(
-        "https://beagleschema.demcrepl.repl.co/specs/user/schema"
-      );
-      const data = await res.json();
-      setFields(data["fields"]);
+
     }
 
     fetchData();

@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { getSpecList } from "./firebase";
+import { getSpecList, getFields } from "./firebase";
 import Spec from "./Spec";
 
 function SpecList({ specType }) {
   const [specList, setSpecList] = useState();
   const [reload, setReload] = useState(true);
+  const [fields, setFields] = useState();
 
   useEffect(() => {
     if (specType && reload) {
       async function fetchData() {
-        const list = await getSpecList(specType);
-        setSpecList(list);
+        const fetchedList = await getSpecList(specType);
+        setSpecList(fetchedList);
+        const fetchedFields = await getFields(specType);
+        setFields(fetchedFields);
       }
+
       fetchData();
       setReload(false);
     }
@@ -27,6 +31,7 @@ function SpecList({ specType }) {
             <Spec
               specType={specType}
               specData={spec[1]}
+              fields={fields}
               setReload={setReload}
               labelOnly={false}
               key={spec[0]}
@@ -35,6 +40,7 @@ function SpecList({ specType }) {
           <Spec
             specType={specType}
             specData={[]}
+            fields={fields}
             setReload={setReload}
             labelOnly={false}
           />
