@@ -20,14 +20,14 @@ export const normalizeData = (formValues) => {
 
 export const fieldTypeSelector = (fieldName) => {
   const types = {
-    name: "text",
-    email: "text",
-    password: "text",
     verified_email: "select",
-    phone_number: "text",
-    last_login: "datetime-local",
+    status: "select",
     role: "select",
     auth_provider: "select",
+    total: "number",
+    shipping_cost: "number",
+    last_login: "datetime-local",
+    time_placed: "datetime-local",
     created_at: "datetime-local",
     updated_at: "datetime-local",
   };

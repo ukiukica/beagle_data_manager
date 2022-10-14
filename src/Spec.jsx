@@ -19,9 +19,7 @@ function Spec({ specType, specData, fields, reload, setReload, labelOnly }) {
   const [formValues, setFormValues] = useState();
   const [id, setId] = useState();
   const [updatedAt, setUpdatedAt] = useState();
-  // console.log("labelOnly", labelOnly)
-  // console.log("formValues", formValues)
-  // console.log("fields", fields)
+
   useEffect(() => {
     if (!specData) {
       return;
