@@ -30,7 +30,7 @@ function SpecList({ specType }) {
     <>
       {specList && (
         <>
-          <Spec specData={[]} labelOnly={true} />
+          <Spec specData={[]} fields={fields} labelOnly={true} />
 
           {specList.map((spec) => (
             <Spec

@@ -4,6 +4,8 @@ import { AsYouType } from "libphonenumber-js";
 import { formatFieldName } from "./utilities";
 
 function InputField({ labelOnly, id, fieldName, type, value, setFormValues }) {
+  console.log("fieldName", fieldName)
+  console.log("labelOnly", labelOnly)
   return (
     <div className="field-div">
       <label className={labelOnly ? "" : "no-display"} id="field-label">
