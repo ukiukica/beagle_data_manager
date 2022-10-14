@@ -18,6 +18,8 @@ import SelectField from "./SelectField";
 function Spec({ specType, specData, fields, reload, setReload, labelOnly }) {
   const [formValues, setFormValues] = useState();
   const [id, setId] = useState();
+  const [products, setProducts] = useState();
+  const [productNames, setProductNames] = useState();
   const [updatedAt, setUpdatedAt] = useState();
 
   useEffect(() => {
@@ -31,9 +33,7 @@ function Spec({ specType, specData, fields, reload, setReload, labelOnly }) {
   }, [specData]);
 
   useEffect(() => {
-    async function fetchData() {
-
-    }
+    async function fetchData() {}
 
     fetchData();
   }, []);
@@ -42,14 +42,10 @@ function Spec({ specType, specData, fields, reload, setReload, labelOnly }) {
     if (id === null) {
       id = uuidv4();
       await createSpec(`${specType}/${id}`, { id, ...values });
-      // (() => reload ? setReload(false) : setReload(true));
       return;
     }
 
     await updateSpec(`${specType}/${id}`, values);
-    // console.log("after updateSpec", reload);
-    // reload ? setReload(false) : setReload(true);
-    // console.log("after reload change", reload);
   }, []);
 
   const handleSubmit = useCallback(
@@ -62,7 +58,6 @@ function Spec({ specType, specData, fields, reload, setReload, labelOnly }) {
   const onDelete = useCallback(async (specType, id) => {
     if (confirm("Are you sure you want to delete the selected spec?")) {
       await deleteSpec(`${specType}/${id}`);
-      // (() => reload ? setReload(false) : setReload(true));
     } else return;
   }, []);
 
@@ -82,7 +77,7 @@ function Spec({ specType, specData, fields, reload, setReload, labelOnly }) {
       if (id) {
         const isCurrentSpec = await validateCurrent(updatedAt, specType, id);
         if (!isCurrentSpec) {
-          (() => reload ? setReload(false) : setReload(true));
+          () => (reload ? setReload(false) : setReload(true));
           return alert(
             "There is a new version of this spec. Data will be reloaded."
           );
@@ -103,7 +98,11 @@ function Spec({ specType, specData, fields, reload, setReload, labelOnly }) {
         <form onSubmit={onSubmit}>
           {fields &&
             Object.keys(fields).map((field) =>
-              fieldTypeSelector(field) === "select" ? (
+              field === "products" ? (
+                <>
+
+                </>
+              ) : fieldTypeSelector(field) === "select" ? (
                 <SelectField
                   key={field}
                   fieldName={field}

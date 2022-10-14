@@ -7,7 +7,7 @@ function SpecList({ specType }) {
   const [reload, setReload] = useState(true);
   const [fields, setFields] = useState();
   // console.log("specType", specType)
-  console.log("reload", reload)
+  // console.log("reload", reload)
 
   useEffect(() => {
     // console.log("top of useEffect", specType)
