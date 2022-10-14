@@ -14,13 +14,19 @@ import {
 
 import InputField from "./InputField";
 import SelectField from "./SelectField";
+import ProductList from "./ProductList";
 
 function Spec({ specType, specData, fields, reload, setReload, labelOnly }) {
   const [formValues, setFormValues] = useState();
   const [id, setId] = useState();
   const [products, setProducts] = useState();
   const [productNames, setProductNames] = useState();
+  const [showProducts, setShowProducts] = useState(false);
   const [updatedAt, setUpdatedAt] = useState();
+  // console.log("specData", specData);
+  // console.log("products", products);
+  // console.log("productNames", productNames);
+  console.log("showProducts", showProducts);
 
   useEffect(() => {
     if (!specData) {
@@ -33,9 +39,11 @@ function Spec({ specType, specData, fields, reload, setReload, labelOnly }) {
   }, [specData]);
 
   useEffect(() => {
-    async function fetchData() {}
-
-    fetchData();
+    if (specData && specData["products"]) {
+      setProducts(specData["products"]);
+      const names = specData["products"].map((product) => product.name);
+      setProductNames(names);
+    }
   }, []);
 
   const handleSave = useCallback(async (specType, id, values) => {
@@ -93,15 +101,31 @@ function Spec({ specType, specData, fields, reload, setReload, labelOnly }) {
   };
 
   return (
+    <>
     <div id="spec">
       {formValues && (
         <form onSubmit={onSubmit}>
           {fields &&
             Object.keys(fields).map((field) =>
               field === "products" ? (
-                <>
-
-                </>
+                <div
+                  key={field}
+                  onClick={() =>
+                    showProducts
+                      ? setShowProducts(false)
+                      : setShowProducts(true)
+                  }
+                >
+                  <InputField
+                    key={field}
+                    fieldName={field}
+                    isDisabled={true}
+                    type={fieldTypeSelector(field)}
+                    value={productNames?.join(", ") || ""}
+                    setFormValues={setFormValues}
+                    labelOnly={labelOnly}
+                  />
+                </div>
               ) : fieldTypeSelector(field) === "select" ? (
                 <SelectField
                   key={field}
@@ -144,6 +168,9 @@ function Spec({ specType, specData, fields, reload, setReload, labelOnly }) {
         </form>
       )}
     </div>
+    
+      {showProducts && <ProductList />}
+    </>
   );
 }
 
