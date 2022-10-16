@@ -14,7 +14,7 @@ import {
 
 import InputField from "./InputField";
 import SelectField from "./SelectField";
-import ProductList from "./ProductList";
+import Product from "./Product";
 
 function Spec({ specType, specData, fields, reload, setReload, labelOnly }) {
   const [formValues, setFormValues] = useState();
@@ -24,9 +24,13 @@ function Spec({ specType, specData, fields, reload, setReload, labelOnly }) {
   const [showProducts, setShowProducts] = useState(false);
   const [updatedAt, setUpdatedAt] = useState();
   // console.log("specData", specData);
-  // console.log("products", products);
+
   // console.log("productNames", productNames);
-  console.log("showProducts", showProducts);
+  // console.log("showProducts", showProducts);
+  useEffect(() => {
+    console.log("products", products);
+  }, [products])
+
 
   useEffect(() => {
     if (!specData) {
@@ -45,6 +49,7 @@ function Spec({ specType, specData, fields, reload, setReload, labelOnly }) {
       setProductNames(names);
     }
   }, []);
+
 
   const handleSave = useCallback(async (specType, id, values) => {
     if (id === null) {
@@ -102,74 +107,81 @@ function Spec({ specType, specData, fields, reload, setReload, labelOnly }) {
 
   return (
     <>
-    <div id="spec">
-      {formValues && (
-        <form onSubmit={onSubmit}>
-          {fields &&
-            Object.keys(fields).map((field) =>
-              field === "products" ? (
-                <div
-                  key={field}
-                  onClick={() =>
-                    showProducts
-                      ? setShowProducts(false)
-                      : setShowProducts(true)
-                  }
-                >
-                  <InputField
+      <div id="spec">
+        {formValues && (
+          <form onSubmit={onSubmit}>
+            {fields &&
+              Object.keys(fields).map((field) =>
+                field === "products" ? (
+                  <div
+                    key={field}
+                    onClick={() =>
+                      showProducts
+                        ? setShowProducts(false)
+                        : setShowProducts(true)
+                    }
+                  >
+                    <InputField
+                      key={field}
+                      fieldName={field}
+                      isDisabled={true}
+                      type={fieldTypeSelector(field)}
+                      value={productNames?.join(", ") || ""}
+                      setFormValues={setFormValues}
+                      labelOnly={labelOnly}
+                    />
+                  </div>
+                ) : fieldTypeSelector(field) === "select" ? (
+                  <SelectField
                     key={field}
                     fieldName={field}
-                    isDisabled={true}
-                    type={fieldTypeSelector(field)}
-                    value={productNames?.join(", ") || ""}
+                    options={fieldOptionsSelector(fields, field)}
+                    value={formValues[field] || ""}
                     setFormValues={setFormValues}
                     labelOnly={labelOnly}
                   />
-                </div>
-              ) : fieldTypeSelector(field) === "select" ? (
-                <SelectField
-                  key={field}
-                  fieldName={field}
-                  options={fieldOptionsSelector(fields, field)}
-                  value={formValues[field] || ""}
-                  setFormValues={setFormValues}
-                  labelOnly={labelOnly}
-                />
-              ) : (
-                <InputField
-                  key={field}
-                  fieldName={field}
-                  type={fieldTypeSelector(field)}
-                  value={formValues[field] || ""}
-                  setFormValues={setFormValues}
-                  labelOnly={labelOnly}
-                />
-              )
-            )}
+                ) : (
+                  <InputField
+                    key={field}
+                    fieldName={field}
+                    type={fieldTypeSelector(field)}
+                    value={formValues[field] || ""}
+                    setFormValues={setFormValues}
+                    labelOnly={labelOnly}
+                  />
+                )
+              )}
 
-          <button
-            className={labelOnly ? "no-display" : ""}
-            id="sub-btn"
-            type="submit"
-          >
-            Save
-          </button>
+            <button
+              className={labelOnly ? "no-display" : ""}
+              id="sub-btn"
+              type="submit"
+            >
+              Save
+            </button>
 
-          <button
-            id="del-btn"
-            className={formValues["id"] ? "" : "hidden"}
-            onClick={(e) => {
-              e.preventDefault();
-              onDelete(specType, id);
-            }}
-          >
-            Delete
-          </button>
-        </form>
-      )}
-    </div>
-    
-      {showProducts && <ProductList />}
+            <button
+              id="del-btn"
+              className={formValues["id"] ? "" : "hidden"}
+              onClick={(e) => {
+                e.preventDefault();
+                onDelete(specType, id);
+              }}
+            >
+              Delete
+            </button>
+          </form>
+        )}
+      </div>
+
+      {products &&
+        showProducts &&
+        products.map((product) => (
+          <div id="product-list" key={product.name}>
+            <Product product={product} products={products} setProducts={setProducts}/>
+          </div>
+
+        ))}
     </>
   );
 }
