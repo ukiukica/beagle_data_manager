@@ -4,29 +4,42 @@ import { getSpec } from "./firebase";
 
 export const normalizeData = (formValues) => {
   let payload = { ...formValues };
-  const phoneNumber = payload["phone_number"];
+
+  if (payload["phone_number"]) {
+    const phoneNumber = payload["phone_number"];
+    payload.phone_number = parsePhoneNumber(phoneNumber).number;
+  }
+
+  if (payload["shipping_cost"]) {
+    const shippingCost = payload["shipping_cost"];
+    payload.shipping_cost = Number(shippingCost).toFixed(2)
+  }
+
+  if (payload["total"]) {
+    const total = payload["total"];
+    payload.total = Number(total).toFixed(2)
+  }
+
   const currentTime = new Date().toISOString();
   const formattedTime = currentTime.slice(0, 16);
-  // const lastLogin = payload["last_login"];
-  // const createdAt = payload["created_at"];
-  // const updatedAt = payload["updated_at"];
 
-  payload.phone_number = parsePhoneNumber(phoneNumber).number;
   payload.updated_at = formattedTime;
-  console.log("payload.updated_at", payload.updated_at);
+
   return payload;
 };
 
 export const fieldTypeSelector = (fieldName) => {
   const types = {
-    name: "text",
-    email: "text",
-    password: "text",
     verified_email: "select",
-    phone_number: "text",
-    last_login: "datetime-local",
+    status: "select",
     role: "select",
     auth_provider: "select",
+    cost: "number",
+    total: "number",
+    shipping_cost: "number",
+    quantity: "number",
+    last_login: "datetime-local",
+    time_placed: "datetime-local",
     created_at: "datetime-local",
     updated_at: "datetime-local",
   };
@@ -52,13 +65,15 @@ export const formatSpec = (spec) => {
 };
 
 export const formatFieldName = (fieldName) => {
-  if (fieldName.includes("_")) {
-    let formatted = [];
-    fieldName.split("_").forEach((str) => {
-      formatted.push(str[0].toUpperCase() + str.substring(1));
+  let formattedName = fieldName;
+  if (formattedName === "total" || formattedName === "shipping_cost" || formattedName === "cost") formattedName = formattedName + " (USD)"
+  if (formattedName.includes("_")) {
+    let nameSplit = [];
+    formattedName.split("_").forEach((str) => {
+      nameSplit.push(str[0].toUpperCase() + str.substring(1));
     });
-    return formatted.join(" ");
-  } else return fieldName[0].toUpperCase() + fieldName.substring(1);
+    return nameSplit.join(" ");
+  } else return formattedName[0].toUpperCase() + formattedName.substring(1);
 };
 
 export const validateFields = (fields, formValues) => {

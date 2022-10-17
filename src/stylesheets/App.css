@@ -83,3 +83,14 @@
     display: flex;
     flex-wrap: wrap;
 } */
+
+#product-list {
+    display: flex;
+}
+
+#product-id {
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 2px;
+    
+}
