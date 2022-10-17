@@ -23,12 +23,14 @@ function Spec({ specType, specData, fields, reload, setReload, labelOnly }) {
   const [productNames, setProductNames] = useState();
   const [showProducts, setShowProducts] = useState(false);
   const [updatedAt, setUpdatedAt] = useState();
-  // console.log("specData", specData);
+  console.log("formValues", formValues);
 
-  // console.log("productNames", productNames);
-  // console.log("showProducts", showProducts);
+
   useEffect(() => {
-    console.log("products", products);
+    setFormValues((prevFormValues) => ({
+      ...prevFormValues,
+      ["products"]: products,
+    }));
   }, [products])
 
 

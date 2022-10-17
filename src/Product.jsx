@@ -3,7 +3,7 @@ import InputField from "./InputField";
 
 function Product({ labelOnly, product, products, setProducts }) {
   const [productDetails, setProductDetails] = useState(product);
-  console.log("productDetails", productDetails);
+  // console.log("productDetails", productDetails);
 
   const updateProducts = () => {
     Object.values(productDetails).forEach((value) => {
