@@ -1,100 +1,100 @@
 #title {
-    text-align: center;
-    margin-bottom: 50px;
-    color: #508CA4;
+  text-align: center;
+  margin-bottom: 50px;
+  color: #508ca4;
 }
 
 #collections {
-    display: flex;
-    justify-content: center;
-    font-size: 22px;
+  display: flex;
+  justify-content: center;
+  font-size: 22px;
 }
 
 #collections > * {
-    cursor: pointer;
-    margin: 0 30px 30px 30px;
+  cursor: pointer;
+  margin: 0 30px 30px 30px;
 }
 
 .collection:hover {
-    color: #508CA4;
+  color: #508ca4;
 }
 
 .collection:focus {
-    color: #508CA4;
+  color: #508ca4;
 }
 
 #spec-list {
-    border: 1px black solid;
-    overflow-x: scroll;
-    padding: 20px;
-    border-radius: 5px;
+  border: 1px black solid;
+  overflow-x: scroll;
+  padding: 20px;
+  border-radius: 5px;
 }
 
 #list-header {
-    display: flex;
-    width: 1450px;
-    justify-content: center;
+  display: flex;
+  width: 1450px;
+  justify-content: center;
 }
 
 #spec {
-    display: flex;
-    margin-bottom: 10px;
+  display: flex;
+  margin-bottom: 10px;
 }
 
 #spec > * {
-    margin-right: 5px;
+  margin-right: 5px;
 }
 
 .field-div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: fit-content;
 }
 
 #product-list {
-    margin-top: 20px;
-    border: 1px solid black;
-    border-radius: inherit;
-    padding: 15px;
+  margin-top: 20px;
+  border: 1px solid black;
+  border-radius: inherit;
+  padding: 15px;
 }
 
 #products-title {
-    text-align: center;
-    margin: 0 0 15px 0;
+  text-align: center;
+  margin: 0 0 15px 0;
 }
 
 #product-fields {
-    display: flex;
+  display: flex;
 }
 
 #product-fields > * {
-    margin-right: 5px;
+  margin-right: 5px;
 }
 
 .buttons {
-    display: flex;
-    align-items: flex-end;
+  display: flex;
+  align-items: flex-end;
 }
 
 .submit {
-    background-color: #65743A;
-    color: white;
+  background-color: #65743a;
+  color: white;
 }
 
 .submit:hover {
-    background-color: #869b4f;
+  background-color: #869b4f;
 }
 
 .delete {
-    background-color: #4C3B4D;
-    color: white;
+  background-color: #4c3b4d;
+  color: white;
 }
 
 .delete:hover {
-    background-color: #6e566f;
+  background-color: #6e566f;
 }
 
 #spec-list-p {
-    text-align: center;
+  text-align: center;
 }

@@ -3,7 +3,7 @@ import { uuidv4 } from "@firebase/util";
 import { validate } from "email-validator";
 import { isValidPhoneNumber } from "libphonenumber-js";
 
-import { createSpec, getSpec, updateSpec, deleteSpec } from "./firebase";
+import { createSpec, updateSpec, deleteSpec } from "./firebase";
 import {
   normalizeData,
   fieldTypeSelector,
@@ -23,7 +23,6 @@ function Spec({ specType, specData, fields, reload, setReload, labelOnly }) {
   const [productNames, setProductNames] = useState();
   const [showProducts, setShowProducts] = useState(false);
   const [updatedAt, setUpdatedAt] = useState();
-  // console.log("formValues", formValues);
 
   useEffect(() => {
     setFormValues((prevFormValues) => ({
@@ -71,13 +70,6 @@ function Spec({ specType, specData, fields, reload, setReload, labelOnly }) {
     },
     [specType, formValues, handleSave]
   );
-
-  // const onDelete = useCallback(async (specType, id) => {
-  //   if (confirm("Are you sure you want to delete the selected spec?")) {
-  //     await deleteSpec(`${specType}/${id}`);
-  //     (() => {reload ? setReload(false) : setReload(true)})();
-  //   } else return;
-  // }, []);
 
   const onDelete = async (specType, id) => {
     if (confirm("Are you sure you want to delete the selected spec?")) {

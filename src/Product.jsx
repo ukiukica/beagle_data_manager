@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import InputField from "./InputField";
 
 function Product({ labelOnly, product, products, setProducts }) {
   const [productDetails, setProductDetails] = useState(product);
-  // console.log("productDetails", productDetails);
 
   const updateProducts = () => {
     Object.values(productDetails).forEach((value) => {
@@ -19,12 +18,6 @@ function Product({ labelOnly, product, products, setProducts }) {
         setProducts(updatedProducts);
         return;
       }
-      // const newProduct = { ...productDetails };
-      // newProduct["id"] = Math.floor(Math.random() * 9999);
-      // updatedProducts.push(newProduct);
-      // setProducts(updatedProducts);
-      // setProductDetails({});
-      // return;
     }
   };
 
@@ -57,35 +50,34 @@ function Product({ labelOnly, product, products, setProducts }) {
     <>
       <form onSubmit={(e) => onSubmit(e)}>
         <div id="product-fields">
-        <InputField
-          labelOnly={labelOnly}
-          fieldName={"name"}
-          type="text"
-          value={productDetails?.name || ""}
-          setFormValues={setProductDetails}
-        />
-        <InputField
-          labelOnly={labelOnly}
-          fieldName={"cost"}
-          type="number"
-          value={productDetails?.cost || ""}
-          setFormValues={setProductDetails}
-        />
-        <InputField
-          labelOnly={labelOnly}
-          fieldName={"quantity"}
-          type="number"
-          value={productDetails?.quantity || ""}
-          setFormValues={setProductDetails}
-        />
+          <InputField
+            labelOnly={labelOnly}
+            fieldName={"name"}
+            type="text"
+            value={productDetails?.name || ""}
+            setFormValues={setProductDetails}
+          />
+          <InputField
+            labelOnly={labelOnly}
+            fieldName={"cost"}
+            type="number"
+            value={productDetails?.cost || ""}
+            setFormValues={setProductDetails}
+          />
+          <InputField
+            labelOnly={labelOnly}
+            fieldName={"quantity"}
+            type="number"
+            value={productDetails?.quantity || ""}
+            setFormValues={setProductDetails}
+          />
         </div>
         {!labelOnly && (
           <div className="buttons">
-            <button className= "submit" type="submit">Update</button>
-            <button
-              className="delete"
-              onClick={(e) => onDelete(e)}
-            >
+            <button className="submit" type="submit">
+              Update
+            </button>
+            <button className="delete" onClick={(e) => onDelete(e)}>
               Delete
             </button>
           </div>

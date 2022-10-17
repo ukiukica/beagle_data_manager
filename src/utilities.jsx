@@ -1,6 +1,5 @@
 import parsePhoneNumber from "libphonenumber-js";
 import { getSpec } from "./firebase";
-// import { Timestamp } from "@firebase/firestore";
 
 export const normalizeData = (formValues) => {
   let payload = { ...formValues };
@@ -12,12 +11,12 @@ export const normalizeData = (formValues) => {
 
   if (payload["shipping_cost"]) {
     const shippingCost = payload["shipping_cost"];
-    payload.shipping_cost = Number(shippingCost).toFixed(2)
+    payload.shipping_cost = Number(shippingCost).toFixed(2);
   }
 
   if (payload["total"]) {
     const total = payload["total"];
-    payload.total = Number(total).toFixed(2)
+    payload.total = Number(total).toFixed(2);
   }
 
   const currentTime = new Date().toISOString();
@@ -66,7 +65,12 @@ export const formatSpec = (spec) => {
 
 export const formatFieldName = (fieldName) => {
   let formattedName = fieldName;
-  if (formattedName === "total" || formattedName === "shipping_cost" || formattedName === "cost") formattedName = formattedName + " (USD)"
+  if (
+    formattedName === "total" ||
+    formattedName === "shipping_cost" ||
+    formattedName === "cost"
+  )
+    formattedName = formattedName + " (USD)";
   if (formattedName.includes("_")) {
     let nameSplit = [];
     formattedName.split("_").forEach((str) => {
