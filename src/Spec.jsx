@@ -45,10 +45,15 @@ function Spec({ specType, specData, fields, reload, setReload, labelOnly }) {
   useEffect(() => {
     if (specData && specData["products"]) {
       setProducts(specData["products"]);
-      const names = specData["products"].map((product) => product.name);
-      setProductNames(names);
     }
   }, []);
+
+  useEffect(() => {
+    if (products) {
+      const names = products.map((product) => product.name);
+      setProductNames(names);
+    }
+  }, [products])
 
 
   const handleSave = useCallback(async (specType, id, values) => {

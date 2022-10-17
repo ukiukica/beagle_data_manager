@@ -6,13 +6,14 @@ function Product({ product, products, setProducts }) {
   // console.log("productDetails", productDetails);
 
   const updateProducts = () => {
-    let updatedProducts = products;
-    console.log("product", product)
-    console.log("updatedProducts", updatedProducts)
+    let updatedProducts = [...products];
+    // console.log("products", products)
+    // console.log("updatedProducts", updatedProducts)
     for (let i = 0; i < updatedProducts.length; i++) {
-      if (updatedProducts[i].id === product.id) {
-        updatedProducts[i] = {...product};
-        console.log("updatedProducts", updatedProducts)
+      if (updatedProducts[i].id === productDetails.id) {
+        // console.log("updatedProducts[i]", updatedProducts[i])
+        updatedProducts[i] = {...productDetails};
+        // console.log("updatedProducts", updatedProducts)
         setProducts(updatedProducts);
         return;
       }
