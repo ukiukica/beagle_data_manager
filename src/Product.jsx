@@ -83,7 +83,7 @@ function Product({ labelOnly, product, products, setProducts }) {
           <div className="buttons">
             <button className= "submit" type="submit">Update</button>
             <button
-              className={productDetails?.id ? "delete" : "delete hidden"}
+              className="delete"
               onClick={(e) => onDelete(e)}
             >
               Delete
