@@ -21,6 +21,7 @@ form {
 
 input {
   min-width: 150px;
+  text-align: center;
 }
 
 input:focus {
@@ -47,7 +48,6 @@ select:focus {
 }
 
 body {
-  display: flex;
   justify-content: center;
 }
 
