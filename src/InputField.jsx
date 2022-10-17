@@ -15,6 +15,7 @@ function InputField({ labelOnly, id, isDisabled, fieldName, type, value, setForm
         className={labelOnly ? "no-display" : ""}
         id={id}
         disabled={isDisabled}
+        required={true}
         type={type}
         name={fieldName}
         value={

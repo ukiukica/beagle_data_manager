@@ -180,13 +180,17 @@ function Spec({ specType, specData, fields, reload, setReload, labelOnly }) {
       </div>
 
       {products &&
-        showProducts &&
-        products.map((product) => (
+        showProducts && (
+          <>
+            {products.map((product) => (
           <div id="product-list" key={product.name}>
             <Product product={product} products={products} setProducts={setProducts}/>
           </div>
-
         ))}
+        <Product products={products} setProducts={setProducts}/>
+          </>
+        )
+        }
     </>
   );
 }
