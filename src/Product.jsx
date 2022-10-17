@@ -57,14 +57,6 @@ function Product({ labelOnly, product, products, setProducts }) {
       <form onSubmit={(e) => onSubmit(e)}>
         <InputField
           labelOnly={labelOnly}
-          type="number"
-          isDisabled={true}
-          fieldName={"id"}
-          value={productDetails?.id || ""}
-        />
-
-        <InputField
-          labelOnly={labelOnly}
           fieldName={"name"}
           type="text"
           value={productDetails?.name || ""}
