@@ -75,12 +75,19 @@ function Spec({ specType, specData, fields, reload, setReload, labelOnly }) {
     [specType, formValues, handleSave]
   );
 
-  const onDelete = useCallback(async (specType, id) => {
+  // const onDelete = useCallback(async (specType, id) => {
+  //   if (confirm("Are you sure you want to delete the selected spec?")) {
+  //     await deleteSpec(`${specType}/${id}`);
+  //     (() => {reload ? setReload(false) : setReload(true)})();
+  //   } else return;
+  // }, []);
+
+  const onDelete = async (specType, id) => {
     if (confirm("Are you sure you want to delete the selected spec?")) {
       await deleteSpec(`${specType}/${id}`);
       reload ? setReload(false) : setReload(true);
     } else return;
-  }, []);
+  };
 
   const onSubmit = async (e) => {
     if (formValues && fields) {
