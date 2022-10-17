@@ -25,14 +25,12 @@ function Spec({ specType, specData, fields, reload, setReload, labelOnly }) {
   const [updatedAt, setUpdatedAt] = useState();
   // console.log("formValues", formValues);
 
-
   useEffect(() => {
     setFormValues((prevFormValues) => ({
       ...prevFormValues,
       ["products"]: products,
     }));
-  }, [products])
-
+  }, [products]);
 
   useEffect(() => {
     if (!specData) {
@@ -55,8 +53,7 @@ function Spec({ specType, specData, fields, reload, setReload, labelOnly }) {
       const names = products.map((product) => product.name);
       setProductNames(names);
     }
-  }, [products])
-
+  }, [products]);
 
   const handleSave = useCallback(async (specType, id, values) => {
     if (id === null) {
@@ -100,7 +97,10 @@ function Spec({ specType, specData, fields, reload, setReload, labelOnly }) {
         );
       if (formValues["email"] && !validate(formValues["email"]))
         return alert("Email is invalid. Please try again.");
-      if (formValues["phone_number"] && !isValidPhoneNumber(formValues["phone_number"]))
+      if (
+        formValues["phone_number"] &&
+        !isValidPhoneNumber(formValues["phone_number"])
+      )
         return alert("Phone Number is invalid. Please try again.");
       if (id) {
         const isCurrentSpec = await validateCurrent(updatedAt, specType, id);
@@ -123,9 +123,9 @@ function Spec({ specType, specData, fields, reload, setReload, labelOnly }) {
 
   return (
     <>
-      <div id="spec">
-        {formValues && (
-          <form onSubmit={onSubmit}>
+      {formValues && (
+        <form onSubmit={onSubmit}>
+          <div id="spec">
             {fields &&
               Object.keys(fields).map((field) =>
                 field === "products" ? (
@@ -167,41 +167,45 @@ function Spec({ specType, specData, fields, reload, setReload, labelOnly }) {
                   />
                 )
               )}
+            <div className="buttons">
+              <button
+                className={labelOnly ? "submit no-display" : "submit"}
+                id="sub-btn"
+                type="submit"
+              >
+                Save
+              </button>
 
-            <button
-              className={labelOnly ? "no-display" : ""}
-              id="sub-btn"
-              type="submit"
-            >
-              Save
-            </button>
-
-            <button
-              id="del-btn"
-              className={formValues["id"] ? "" : "hidden"}
-              onClick={(e) => {
-                e.preventDefault();
-                onDelete(specType, id);
-              }}
-            >
-              Delete
-            </button>
-          </form>
-        )}
-      </div>
-
-      {products &&
-        showProducts && (
-          <>
-          <Product labelOnly={true}/>
-            {products.map((product) => (
-          <div id="product-list" key={product.name}>
-            <Product product={product} products={products} setProducts={setProducts}/>
+              <button
+                id="del-btn"
+                className={formValues["id"] ? "delete" : "delete hidden"}
+                onClick={(e) => {
+                  e.preventDefault();
+                  onDelete(specType, id);
+                }}
+              >
+                Delete
+              </button>
+            </div>
           </div>
-        ))}
-          </>
-        )
-        }
+        </form>
+      )}
+
+      {products && showProducts && (
+        <div id="product-list">
+          <h4 id="products-title">Products</h4>
+          <Product labelOnly={true} />
+          {products.map((product) => (
+            <div key={product.name}>
+              <Product
+                product={product}
+                products={products}
+                setProducts={setProducts}
+              />
+            </div>
+          ))}
+        </div>
+      )}
     </>
   );
 }

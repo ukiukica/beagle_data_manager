@@ -1,3 +1,11 @@
+* {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 .hidden {
     visibility: hidden;
 }
@@ -9,14 +17,47 @@
 form {
     display: flex;
     flex-wrap: nowrap;
-    width: 1450px;
 }
 
 input {
     min-width: 150px;
 }
 
+input:focus {
+    background-color: #d8f4ff;
+}
+
+input:disabled {
+    cursor:pointer;
+    color: #daa000;
+    /* background-color: white; */
+
+}
+
+input:disabled:hover {
+    color: #daa000;
+    text-decoration: underline;
+    /* background-color: white; */
+
+}
+
 select {
     min-width: 100px;
     text-align: center;
+}
+
+select:focus {
+    background-color: #d8f4ff;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+}
+
+button {
+    height: 60%;
+    border: none;
+    margin-right: 5px;
+    border-radius: 4px;
 }

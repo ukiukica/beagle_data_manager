@@ -24,7 +24,7 @@ function Collections() {
       <div id="collections">
         {specs &&
           specs.map((spec) => (
-            <div key={spec} onClick={() => setSpecType(spec)}>
+            <div key={spec} className="collection" onClick={() => setSpecType(spec)}>
               {formatSpec(spec)}
             </div>
           ))}

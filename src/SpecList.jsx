@@ -17,7 +17,7 @@ function SpecList({ specType }) {
         // console.log("specType in useEffect", specType)
         const fetchedList = await getSpecList(specType);
         setSpecList(fetchedList);
-        console.log("fetchedList", fetchedList)
+        console.log("fetchedList", fetchedList);
         const fetchedFields = await getFields(specType);
         setFields(fetchedFields);
       }
@@ -28,6 +28,8 @@ function SpecList({ specType }) {
 
   return (
     <>
+      {!specType && <p id="spec-list-p">Click on a collection to populate the data</p>}
+
       {specList && (
         <>
           <Spec specData={[]} fields={fields} labelOnly={true} />

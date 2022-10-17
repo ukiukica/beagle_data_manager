@@ -15,7 +15,7 @@ function Product({ labelOnly, product, products, setProducts }) {
         updatedProducts[i] = { ...productDetails };
         let cost = Number(updatedProducts[i].cost);
 
-        updatedProducts[i].cost = cost.toFixed(2)
+        updatedProducts[i].cost = cost.toFixed(2);
         setProducts(updatedProducts);
         return;
       }
@@ -47,7 +47,8 @@ function Product({ labelOnly, product, products, setProducts }) {
 
   const onDelete = (e) => {
     e.preventDefault();
-    if (products.length < 2) return alert("At least one item has to be in the shopping cart!")
+    if (products.length < 2)
+      return alert("At least one item has to be in the shopping cart!");
     deleteProduct();
     return alert("Product successfully deleted!");
   };
@@ -55,6 +56,7 @@ function Product({ labelOnly, product, products, setProducts }) {
   return (
     <>
       <form onSubmit={(e) => onSubmit(e)}>
+        <div id="product-fields">
         <InputField
           labelOnly={labelOnly}
           fieldName={"name"}
@@ -76,13 +78,17 @@ function Product({ labelOnly, product, products, setProducts }) {
           value={productDetails?.quantity || ""}
           setFormValues={setProductDetails}
         />
+        </div>
         {!labelOnly && (
-          <>
-            <button type="submit">Update</button>
+          <div className="buttons">
+            <button className= "submit" type="submit">Update</button>
             <button
-            className={productDetails?.id ? "" : "hidden"}
-            onClick={(e) => onDelete(e)}>Delete</button>
-          </>
+              className={productDetails?.id ? "delete" : "delete hidden"}
+              onClick={(e) => onDelete(e)}
+            >
+              Delete
+            </button>
+          </div>
         )}
       </form>
     </>

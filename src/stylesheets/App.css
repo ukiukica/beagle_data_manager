@@ -1,6 +1,7 @@
 #title {
     text-align: center;
     margin-bottom: 50px;
+    color: #508CA4;
 }
 
 #collections {
@@ -14,10 +15,19 @@
     margin: 0 30px 30px 30px;
 }
 
+.collection:hover {
+    color: #508CA4;
+}
+
+.collection:focus {
+    color: #508CA4;
+}
+
 #spec-list {
-    max-width: 1500px;
     border: 1px black solid;
     overflow-x: scroll;
+    padding: 20px;
+    border-radius: 5px;
 }
 
 #list-header {
@@ -28,49 +38,12 @@
 
 #spec {
     display: flex;
-    justify-content: center;
     margin-bottom: 10px;
 }
 
-/* #name-input {
-    min-width: 10%;
+#spec > * {
+    margin-right: 5px;
 }
-
-#email-input {
-    width: 10%;
-}
-
-#pass-input {
-    width: 8%;
-}
-
-#verif-select {
-    width: 8%;
-}
-
-#phone-input {
-    width: 8%;
-}
-
-#login-input {
-    width: 12%;
-}
-
-#role-select {
-    width: 8%;
-}
-
-#auth-select {
-    width: 8%;
-}
-
-#create-input {
-    width: 12%;
-}
-
-#update-input {
-    width: 12%;
-} */
 
 .field-div {
     display: flex;
@@ -79,18 +52,49 @@
     width: fit-content;
 }
 
-/* #field-label {
-    display: flex;
-    flex-wrap: wrap;
-} */
-
 #product-list {
+    margin-top: 20px;
+    border: 1px solid black;
+    border-radius: inherit;
+    padding: 15px;
+}
+
+#products-title {
+    text-align: center;
+    margin: 0 0 15px 0;
+}
+
+#product-fields {
     display: flex;
 }
 
-#product-id {
+#product-fields > * {
+    margin-right: 5px;
+}
+
+.buttons {
     display: flex;
     align-items: flex-end;
-    padding-bottom: 2px;
-    
+}
+
+.submit {
+    background-color: #65743A;
+    color: white;
+}
+
+.submit:hover {
+    background-color: #869b4f;
+}
+
+.delete {
+    background-color: #4C3B4D;
+    color: white;
+}
+
+.delete:hover {
+    background-color: #6e566f;
+}
+
+#spec-list-p {
+    text-align: center;
 }
