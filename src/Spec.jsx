@@ -182,6 +182,7 @@ function Spec({ specType, specData, fields, reload, setReload, labelOnly }) {
       {products &&
         showProducts && (
           <>
+          <Product labelOnly={true}/>
             {products.map((product) => (
           <div id="product-list" key={product.name}>
             <Product product={product} products={products} setProducts={setProducts}/>

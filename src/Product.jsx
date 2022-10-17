@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import InputField from "./InputField";
 
-function Product({ product, products, setProducts }) {
+function Product({ labelOnly, product, products, setProducts }) {
   const [productDetails, setProductDetails] = useState(product);
   console.log("productDetails", productDetails);
 
@@ -16,8 +16,9 @@ function Product({ product, products, setProducts }) {
         setProducts(updatedProducts);
         return;
       }
-      // const newProduct =
-      updatedProducts.push(productDetails);
+      const newProduct = { ...productDetails };
+      newProduct["id"] = Math.floor(Math.random() * 9999);
+      updatedProducts.push(newProduct);
       setProducts(updatedProducts);
       setProductDetails({});
       return;
@@ -38,38 +39,51 @@ function Product({ product, products, setProducts }) {
   const onSubmit = (e) => {
     e.preventDefault();
     updateProducts();
-    alert("Product successfully updated");
+    alert("Product successfully updated!");
   };
 
   const onDelete = (e) => {
     e.preventDefault();
     deleteProduct();
-    alert("Product successfully deleted");
+    alert("Product successfully deleted!");
   };
 
   return (
     <>
-      <form
-      onSubmit={(e) => onSubmit(e)}
-      >
-        <div id="product-id">{product?.id || ""}</div>
+      <form onSubmit={(e) => onSubmit(e)}>
         <InputField
+          labelOnly={labelOnly}
+          isDisabled={true}
+          fieldName={"id"}
+          value={productDetails?.id || ""}
+        />
+
+        <InputField
+          labelOnly={labelOnly}
           fieldName={"name"}
           value={productDetails?.name || ""}
           setFormValues={setProductDetails}
         />
         <InputField
+          labelOnly={labelOnly}
           fieldName={"cost"}
           value={productDetails?.cost || ""}
           setFormValues={setProductDetails}
         />
         <InputField
+          labelOnly={labelOnly}
           fieldName={"quantity"}
           value={productDetails?.quantity || ""}
           setFormValues={setProductDetails}
         />
-        <button type="submit">Save</button>
-        <button onClick={(e) => onDelete(e)}>Delete</button>
+        {!labelOnly && (
+          <>
+            <button type="submit">Save</button>
+            <button
+            className={productDetails?.id ? "" : "hidden"}
+            onClick={(e) => onDelete(e)}>Delete</button>
+          </>
+        )}
       </form>
     </>
   );
