@@ -43,14 +43,16 @@ function SpecList({ specType }) {
               key={spec[0]}
             />
           ))}
-          <Spec
-            specType={specType}
-            specData={[]}
-            fields={fields}
-            reload={reload}
-            setReload={setReload}
-            labelOnly={false}
-          />
+          {specType !== "shopping_cart" && (
+            <Spec
+              specType={specType}
+              specData={[]}
+              fields={fields}
+              reload={reload}
+              setReload={setReload}
+              labelOnly={false}
+            />
+          )}
         </>
       )}
     </>

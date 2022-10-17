@@ -16,12 +16,12 @@ function Product({ labelOnly, product, products, setProducts }) {
         setProducts(updatedProducts);
         return;
       }
-      const newProduct = { ...productDetails };
-      newProduct["id"] = Math.floor(Math.random() * 9999);
-      updatedProducts.push(newProduct);
-      setProducts(updatedProducts);
-      setProductDetails({});
-      return;
+      // const newProduct = { ...productDetails };
+      // newProduct["id"] = Math.floor(Math.random() * 9999);
+      // updatedProducts.push(newProduct);
+      // setProducts(updatedProducts);
+      // setProductDetails({});
+      // return;
     }
   };
 
@@ -44,8 +44,9 @@ function Product({ labelOnly, product, products, setProducts }) {
 
   const onDelete = (e) => {
     e.preventDefault();
+    if (products.length < 2) return alert("At least one item has to be in the shopping cart!")
     deleteProduct();
-    alert("Product successfully deleted!");
+    return alert("Product successfully deleted!");
   };
 
   return (

@@ -191,7 +191,6 @@ function Spec({ specType, specData, fields, reload, setReload, labelOnly }) {
             <Product product={product} products={products} setProducts={setProducts}/>
           </div>
         ))}
-        <Product products={products} setProducts={setProducts}/>
           </>
         )
         }
