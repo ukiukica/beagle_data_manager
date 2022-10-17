@@ -7,12 +7,10 @@ import { formatSpec } from "./utilities";
 function Collections() {
   const [specs, setSpecs] = useState();
   const [specType, setSpecType] = useState();
-  // console.log("specType", specType)
 
   useEffect(() => {
     async function fetchData() {
       const fetchedSpecs = await getCollections();
-      // console.log("fetchedSpecs", fetchedSpecs)
       setSpecs(fetchedSpecs);
     }
 
@@ -24,7 +22,11 @@ function Collections() {
       <div id="collections">
         {specs &&
           specs.map((spec) => (
-            <div key={spec} onClick={() => setSpecType(spec)}>
+            <div
+              key={spec}
+              className="collection"
+              onClick={() => setSpecType(spec)}
+            >
               {formatSpec(spec)}
             </div>
           ))}

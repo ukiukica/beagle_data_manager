@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React from "react";
 import { AsYouType } from "libphonenumber-js";
 
 import { formatFieldName } from "./utilities";
@@ -12,8 +12,6 @@ function InputField({
   value,
   setFormValues,
 }) {
-  // console.log("fieldName", fieldName)
-  // console.log("labelOnly", labelOnly)
   return (
     <div className="field-div">
       <label className={labelOnly ? "" : "no-display"} id="field-label">

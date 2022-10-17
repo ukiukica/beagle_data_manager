@@ -1,11 +1,13 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React from "react";
 
-import {formatFieldName} from "./utilities";
+import { formatFieldName } from "./utilities";
 
 function SelectField({ labelOnly, fieldName, options, value, setFormValues }) {
   return (
     <div className="field-div">
-      <label className={labelOnly ? "" : "no-display"}>{formatFieldName(fieldName)}</label>
+      <label className={labelOnly ? "" : "no-display"}>
+        {formatFieldName(fieldName)}
+      </label>
       <select
         className={labelOnly ? "no-display" : ""}
         name={fieldName}

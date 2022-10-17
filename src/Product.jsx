@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import InputField from "./InputField";
 
 function Product({ labelOnly, product, products, setProducts }) {
   const [productDetails, setProductDetails] = useState(product);
-  // console.log("productDetails", productDetails);
 
   const updateProducts = () => {
     Object.values(productDetails).forEach((value) => {
@@ -15,16 +14,10 @@ function Product({ labelOnly, product, products, setProducts }) {
         updatedProducts[i] = { ...productDetails };
         let cost = Number(updatedProducts[i].cost);
 
-        updatedProducts[i].cost = cost.toFixed(2)
+        updatedProducts[i].cost = cost.toFixed(2);
         setProducts(updatedProducts);
         return;
       }
-      // const newProduct = { ...productDetails };
-      // newProduct["id"] = Math.floor(Math.random() * 9999);
-      // updatedProducts.push(newProduct);
-      // setProducts(updatedProducts);
-      // setProductDetails({});
-      // return;
     }
   };
 
@@ -47,7 +40,8 @@ function Product({ labelOnly, product, products, setProducts }) {
 
   const onDelete = (e) => {
     e.preventDefault();
-    if (products.length < 2) return alert("At least one item has to be in the shopping cart!")
+    if (products.length < 2)
+      return alert("At least one item has to be in the shopping cart!");
     deleteProduct();
     return alert("Product successfully deleted!");
   };
@@ -55,34 +49,38 @@ function Product({ labelOnly, product, products, setProducts }) {
   return (
     <>
       <form onSubmit={(e) => onSubmit(e)}>
-        <InputField
-          labelOnly={labelOnly}
-          fieldName={"name"}
-          type="text"
-          value={productDetails?.name || ""}
-          setFormValues={setProductDetails}
-        />
-        <InputField
-          labelOnly={labelOnly}
-          fieldName={"cost"}
-          type="number"
-          value={productDetails?.cost || ""}
-          setFormValues={setProductDetails}
-        />
-        <InputField
-          labelOnly={labelOnly}
-          fieldName={"quantity"}
-          type="number"
-          value={productDetails?.quantity || ""}
-          setFormValues={setProductDetails}
-        />
+        <div id="product-fields">
+          <InputField
+            labelOnly={labelOnly}
+            fieldName={"name"}
+            type="text"
+            value={productDetails?.name || ""}
+            setFormValues={setProductDetails}
+          />
+          <InputField
+            labelOnly={labelOnly}
+            fieldName={"cost"}
+            type="number"
+            value={productDetails?.cost || ""}
+            setFormValues={setProductDetails}
+          />
+          <InputField
+            labelOnly={labelOnly}
+            fieldName={"quantity"}
+            type="number"
+            value={productDetails?.quantity || ""}
+            setFormValues={setProductDetails}
+          />
+        </div>
         {!labelOnly && (
-          <>
-            <button type="submit">Update</button>
-            <button
-            className={productDetails?.id ? "" : "hidden"}
-            onClick={(e) => onDelete(e)}>Delete</button>
-          </>
+          <div className="buttons">
+            <button className="submit" type="submit">
+              Update
+            </button>
+            <button className="delete" onClick={(e) => onDelete(e)}>
+              Delete
+            </button>
+          </div>
         )}
       </form>
     </>
