@@ -10,6 +10,16 @@ export const normalizeData = (formValues) => {
     payload.phone_number = parsePhoneNumber(phoneNumber).number;
   }
 
+  if (payload["shipping_cost"]) {
+    const shippingCost = payload["shipping_cost"];
+    payload.shipping_cost = Number(shippingCost).toFixed(2)
+  }
+
+  if (payload["total"]) {
+    const total = payload["total"];
+    payload.total = Number(total).toFixed(2)
+  }
+
   const currentTime = new Date().toISOString();
   const formattedTime = currentTime.slice(0, 16);
 
@@ -55,13 +65,15 @@ export const formatSpec = (spec) => {
 };
 
 export const formatFieldName = (fieldName) => {
-  if (fieldName.includes("_")) {
-    let formatted = [];
-    fieldName.split("_").forEach((str) => {
-      formatted.push(str[0].toUpperCase() + str.substring(1));
+  let formattedName = fieldName;
+  if (formattedName === "total" || formattedName === "shipping_cost" || formattedName === "cost") formattedName = formattedName + " (USD)"
+  if (formattedName.includes("_")) {
+    let nameSplit = [];
+    formattedName.split("_").forEach((str) => {
+      nameSplit.push(str[0].toUpperCase() + str.substring(1));
     });
-    return formatted.join(" ");
-  } else return fieldName[0].toUpperCase() + fieldName.substring(1);
+    return nameSplit.join(" ");
+  } else return formattedName[0].toUpperCase() + formattedName.substring(1);
 };
 
 export const validateFields = (fields, formValues) => {

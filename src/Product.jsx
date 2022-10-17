@@ -13,6 +13,9 @@ function Product({ labelOnly, product, products, setProducts }) {
     for (let i = 0; i < updatedProducts.length; i++) {
       if (updatedProducts[i].id === productDetails.id) {
         updatedProducts[i] = { ...productDetails };
+        let cost = Number(updatedProducts[i].cost);
+
+        updatedProducts[i].cost = cost.toFixed(2)
         setProducts(updatedProducts);
         return;
       }
@@ -39,7 +42,7 @@ function Product({ labelOnly, product, products, setProducts }) {
   const onSubmit = (e) => {
     e.preventDefault();
     updateProducts();
-    alert("Product successfully updated!");
+    alert("Product updated! Please, save the spec.");
   };
 
   const onDelete = (e) => {
@@ -54,6 +57,7 @@ function Product({ labelOnly, product, products, setProducts }) {
       <form onSubmit={(e) => onSubmit(e)}>
         <InputField
           labelOnly={labelOnly}
+          type="number"
           isDisabled={true}
           fieldName={"id"}
           value={productDetails?.id || ""}
@@ -62,24 +66,27 @@ function Product({ labelOnly, product, products, setProducts }) {
         <InputField
           labelOnly={labelOnly}
           fieldName={"name"}
+          type="text"
           value={productDetails?.name || ""}
           setFormValues={setProductDetails}
         />
         <InputField
           labelOnly={labelOnly}
           fieldName={"cost"}
+          type="number"
           value={productDetails?.cost || ""}
           setFormValues={setProductDetails}
         />
         <InputField
           labelOnly={labelOnly}
           fieldName={"quantity"}
+          type="number"
           value={productDetails?.quantity || ""}
           setFormValues={setProductDetails}
         />
         {!labelOnly && (
           <>
-            <button type="submit">Save</button>
+            <button type="submit">Update</button>
             <button
             className={productDetails?.id ? "" : "hidden"}
             onClick={(e) => onDelete(e)}>Delete</button>

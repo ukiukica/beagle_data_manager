@@ -115,6 +115,7 @@ function Spec({ specType, specData, fields, reload, setReload, labelOnly }) {
       const payload = normalizeData(formValues);
       handleSubmit(payload);
       alert("Spec successfully saved!");
+      setShowProducts(false);
       reload ? setReload(false) : setReload(true);
       setFormValues({});
     }
