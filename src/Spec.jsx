@@ -23,7 +23,7 @@ function Spec({ specType, specData, fields, reload, setReload, labelOnly }) {
   const [productNames, setProductNames] = useState();
   const [showProducts, setShowProducts] = useState(false);
   const [updatedAt, setUpdatedAt] = useState();
-  console.log("formValues", formValues);
+  // console.log("formValues", formValues);
 
 
   useEffect(() => {
@@ -78,6 +78,7 @@ function Spec({ specType, specData, fields, reload, setReload, labelOnly }) {
   const onDelete = useCallback(async (specType, id) => {
     if (confirm("Are you sure you want to delete the selected spec?")) {
       await deleteSpec(`${specType}/${id}`);
+      reload ? setReload(false) : setReload(true);
     } else return;
   }, []);
 
@@ -90,9 +91,9 @@ function Spec({ specType, specData, fields, reload, setReload, labelOnly }) {
         return alert(
           `Please fill out the following field(s): ${fieldValidator}`
         );
-      if (!validate(formValues["email"]))
+      if (formValues["email"] && !validate(formValues["email"]))
         return alert("Email is invalid. Please try again.");
-      if (!isValidPhoneNumber(formValues["phone_number"]))
+      if (formValues["phone_number"] && !isValidPhoneNumber(formValues["phone_number"]))
         return alert("Phone Number is invalid. Please try again.");
       if (id) {
         const isCurrentSpec = await validateCurrent(updatedAt, specType, id);
