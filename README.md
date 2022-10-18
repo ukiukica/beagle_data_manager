@@ -19,7 +19,7 @@
 1. Clone the main repository
 
    ```bash
-   git clone https://github.com/ukiukica/rankd-app.git
+   git clone https://github.com/ukiukica/niche_app.git
    ```
 
 2. Install the dependencies
