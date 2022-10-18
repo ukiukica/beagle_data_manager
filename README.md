@@ -2,7 +2,7 @@
 
 <p align="center">BEAGLE DATA MANAGER is a simple, functional application that allows users to easily create, read, update, and delete data entries.</p>
 
-![Screenshot 2022-09-27 015453](https://user-images.githubusercontent.com/98477390/192444198-d2ba21b4-af3c-48d2-a3a4-660b447b862e.jpg)
+![Screenshot 2022-10-18 184827](https://user-images.githubusercontent.com/98477390/196559491-7afeab6c-6bb3-4e49-849e-39423ca16c92.jpg)
 
 
 <br />
