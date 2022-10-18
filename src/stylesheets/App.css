@@ -23,6 +23,7 @@
 .collection-selected {
   color: #508ca4;
   text-decoration: underline;
+  font-weight: bold;
 }
 
 #spec-list {
@@ -59,6 +60,7 @@
   border: 1px solid black;
   border-radius: inherit;
   padding: 15px;
+  width:fit-content;
 }
 
 #products-title {
