@@ -17,10 +17,12 @@
 
 .collection:hover {
   color: #508ca4;
+  text-decoration: underline;
 }
 
-.collection:focus {
+.collection-selected {
   color: #508ca4;
+  text-decoration: underline;
 }
 
 #spec-list {
