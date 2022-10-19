@@ -86,6 +86,7 @@ export const validateFields = (fields, formValues) => {
   requiredFields.forEach((field) => {
     if (!formValues[field]) missingFields.push(formatFieldName(field));
   });
+  
   return missingFields.join(", ");
 };
 
