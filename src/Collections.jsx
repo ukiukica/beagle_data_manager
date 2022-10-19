@@ -5,13 +5,13 @@ import SpecList from "./SpecList";
 import { formatSpec } from "./utilities";
 
 function Collections() {
-  const [specs, setSpecs] = useState();
-  const [specType, setSpecType] = useState();
+  const [collections, setCollections] = useState();
+  const [collectionType, setCollectionType] = useState();
 
   useEffect(() => {
     async function fetchData() {
-      const fetchedSpecs = await getCollections();
-      setSpecs(fetchedSpecs);
+      const fetchedCollections = await getCollections();
+      setCollections(fetchedCollections);
     }
 
     fetchData();
@@ -20,20 +20,22 @@ function Collections() {
   return (
     <>
       <div id="collections">
-        {specs &&
-          specs.map((spec) => (
+        {collections &&
+          collections.map((collection) => (
             <div
-              key={spec}
-              className={spec === specType ? "collection-selected" : "collection"}
-              onClick={() => setSpecType(spec)}
+              key={collection}
+              className={
+                collection === collectionType ? "collection-selected" : "collection"
+              }
+              onClick={() => setCollectionType(collection)}
             >
-              {formatSpec(spec)}
+              {formatSpec(collection)}
             </div>
           ))}
       </div>
 
       <div id="spec-list">
-        <SpecList specType={specType} />
+        <SpecList collectionType={collectionType} />
       </div>
     </>
   );

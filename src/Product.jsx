@@ -43,7 +43,7 @@ function Product({ labelOnly, product, products, setProducts }) {
     if (products.length < 2)
       return alert("At least one item has to be in the shopping cart!");
     deleteProduct();
-    return alert("Product successfully deleted!");
+    return alert("Product deleted! Please, save the spec.");
   };
 
   return (

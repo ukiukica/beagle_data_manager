@@ -16,20 +16,20 @@ import InputField from "./InputField";
 import SelectField from "./SelectField";
 import Product from "./Product";
 
-function Spec({ specType, specData, fields, reload, setReload, labelOnly }) {
+function Spec({
+  collectionType,
+  specData,
+  fields,
+  reload,
+  setReload,
+  labelOnly,
+}) {
   const [formValues, setFormValues] = useState();
   const [id, setId] = useState();
   const [products, setProducts] = useState();
   const [productNames, setProductNames] = useState();
   const [showProducts, setShowProducts] = useState(false);
   const [updatedAt, setUpdatedAt] = useState();
-
-  useEffect(() => {
-    setFormValues((prevFormValues) => ({
-      ...prevFormValues,
-      ["products"]: products,
-    }));
-  }, [products]);
 
   useEffect(() => {
     if (!specData) {
@@ -54,26 +54,33 @@ function Spec({ specType, specData, fields, reload, setReload, labelOnly }) {
     }
   }, [products]);
 
-  const handleSave = useCallback(async (specType, id, values) => {
+  useEffect(() => {
+    setFormValues((prevFormValues) => ({
+      ...prevFormValues,
+      ["products"]: products,
+    }));
+  }, [products]);
+
+  const handleSave = useCallback(async (collectionType, id, values) => {
     if (id === null) {
       id = uuidv4();
-      await createSpec(`${specType}/${id}`, { id, ...values });
+      await createSpec(`${collectionType}/${id}`, { id, ...values });
       return;
     }
 
-    await updateSpec(`${specType}/${id}`, values);
+    await updateSpec(`${collectionType}/${id}`, values);
   }, []);
 
   const handleSubmit = useCallback(
     (payload) => {
-      handleSave(specType, id || null, payload);
+      handleSave(collectionType, id || null, payload);
     },
-    [specType, formValues, handleSave]
+    [collectionType, formValues, handleSave]
   );
 
-  const onDelete = async (specType, id) => {
+  const onDelete = async (collectionType, id) => {
     if (confirm("Are you sure you want to delete the selected spec?")) {
-      await deleteSpec(`${specType}/${id}`);
+      await deleteSpec(`${collectionType}/${id}`);
       reload ? setReload(false) : setReload(true);
     } else return;
   };
@@ -95,7 +102,11 @@ function Spec({ specType, specData, fields, reload, setReload, labelOnly }) {
       )
         return alert("Phone Number is invalid. Please try again.");
       if (id) {
-        const isCurrentSpec = await validateCurrent(updatedAt, specType, id);
+        const isCurrentSpec = await validateCurrent(
+          updatedAt,
+          collectionType,
+          id
+        );
         if (!isCurrentSpec) {
           () => (reload ? setReload(false) : setReload(true));
           return alert(
@@ -173,7 +184,7 @@ function Spec({ specType, specData, fields, reload, setReload, labelOnly }) {
                 className={formValues["id"] ? "delete" : "delete hidden"}
                 onClick={(e) => {
                   e.preventDefault();
-                  onDelete(specType, id);
+                  onDelete(collectionType, id);
                 }}
               >
                 Delete
