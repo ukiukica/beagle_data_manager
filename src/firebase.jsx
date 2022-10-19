@@ -37,9 +37,9 @@ export const getCollections = async () => {
   return data.specs;
 };
 
-export const getSpecList = async (specType) => {
+export const getSpecList = async (collectionType) => {
   const specList = [];
-  const res = await getDocs(collection(db, specType));
+  const res = await getDocs(collection(db, collectionType));
   res.forEach((doc) => {
     specList.push([doc.id, doc.data()]);
   });

@@ -2,27 +2,27 @@ import React, { useState, useEffect } from "react";
 import { getSpecList, getFields } from "./firebase";
 import Spec from "./Spec";
 
-function SpecList({ specType }) {
+function SpecList({ collectionType }) {
   const [specList, setSpecList] = useState();
   const [reload, setReload] = useState(true);
   const [fields, setFields] = useState();
 
   useEffect(() => {
-    if (specType) {
+    if (collectionType) {
       async function fetchData() {
-        const fetchedList = await getSpecList(specType);
+        const fetchedList = await getSpecList(collectionType);
         setSpecList(fetchedList);
-        const fetchedFields = await getFields(specType);
+        const fetchedFields = await getFields(collectionType);
         setFields(fetchedFields);
       }
 
       fetchData();
     }
-  }, [specType, reload]);
+  }, [collectionType, reload]);
 
   return (
     <>
-      {!specType && (
+      {!collectionType && (
         <p id="spec-list-p">Click on a collection to populate the data</p>
       )}
 
@@ -32,7 +32,7 @@ function SpecList({ specType }) {
 
           {specList.map((spec) => (
             <Spec
-              specType={specType}
+              collectionType={collectionType}
               specData={spec[1]}
               fields={fields}
               reload={reload}
@@ -41,9 +41,9 @@ function SpecList({ specType }) {
               key={spec[0]}
             />
           ))}
-          {specType !== "shopping_cart" && (
+          {collectionType !== "shopping_cart" && (
             <Spec
-              specType={specType}
+              collectionType={collectionType}
               specData={[]}
               fields={fields}
               reload={reload}
